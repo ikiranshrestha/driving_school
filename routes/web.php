@@ -3,9 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\TimeController;
-use App\Http\Controllers\CourseController;
-use PhpParser\Node\Stmt\Return_;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +31,3 @@ Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enroll');
 
 Route::get('/enroll', [EnrollmentController::class, 'loadData'])->name('loadCoursesAndTime');
 
-
-// Route::get('/enroll', [CourseController::class, 'loadCourses'])->name('loadCourses');
-
-// Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function(){
-//     Route::get('/enroll', [TimeController::class, 'loadTime'])->name('loadTime');
-//     Route::get('/enroll', [CourseController::class, 'loadCourses'])->name('loadCourses');
-
-// });

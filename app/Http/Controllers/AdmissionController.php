@@ -33,7 +33,14 @@ class AdmissionController extends Controller
         $data['t_phone'] = $request->phone;
         $data['t_bloodgroup'] = $request->bloodgroup;
 
-        DB::table('trainees')->insert($data);
+        $last_id = DB::table('trainees')->insertGetId($data);
+
+        
+        // ddd($last_id);
+        $admissionData['a_uid'] = $last_id;
+        $admissionData['admission_date'] = date("Y-m-d");
+
+        DB::table('admissions')->insert($admissionData);
 
         
         $to_email = $data['t_email'];
