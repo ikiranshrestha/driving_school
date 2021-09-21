@@ -2,7 +2,38 @@
 
 @section('form')
 
-<div class="form-group row">
+<p class="card-description">
+                      Personal info
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="uname" placeholder="eg. Khatri0b3d020d">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                        <label for="course" class="col-sm-3 col-form-label">Course</label>
+                          <div class="col-sm-9">
+                            <select name="course" id="course" class="form-control">
+                              <option selected disabled>Select your Course</option>
+
+                                @foreach($courseList as $course)
+
+                                  <option value="{{$course->vehicle_category}}">{{$course->course_type}}</option>
+
+                                @endforeach
+                
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+{{--<div class="form-group row">
           <div class="col-sm-4">
             <label for="lastname" class="col-sm-6 col-form-label">Username</label>
             <div class="col-sm-10">
@@ -24,15 +55,7 @@
               @endforeach
 
               @endif--}
-              <!-- <option selected default>Select Course type</option>
-                <option value="a">Motorcycle</option>
-                <option value="k">Scooter</option>
-                <option value="p">Moped</option>
-                <option value="b">Car</option>
-                <option value="o-pos">Tempo</option>
-                <option value="d">Bus</option>
-                <option value="f">Tractor</option>
-                <option value="H">JCB/ Road Roller/ Construction Vehicles</option> -->
+              
               </select>
             </div>
           </div>
@@ -78,5 +101,6 @@
             <input type="submit" value="Admit" name="admit" class="btn btn-success">
           </div>
 </div>
+--}}
 
 @endsection

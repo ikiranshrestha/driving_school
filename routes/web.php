@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\AddCourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,13 @@ Route::post('/admission', [AdmissionController::class, 'processForm']);
 Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enroll');
 
 Route::get('/enroll', [EnrollmentController::class, 'loadData'])->name('loadCoursesAndTime');
+
+Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
+
+Route::get('/dashboard', function(){
+    return view('admin.dashboard');
+});
+Route::get('/layout', function(){
+    return view('admin.forms.layout_copy');
+});
 
