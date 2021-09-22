@@ -1,3 +1,6 @@
+@php
+$institute_name = "Driving School";
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
+  <title>{{$institute_name}}</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{url('admin/vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{url('admin/vendors/mdi/css/materialdesignicons.min.css')}}">
@@ -14,10 +17,12 @@
   <link rel="stylesheet" href="{{url('admin/vendors/simple-line-icons/css/simple-line-icons.css')}}">
   <link rel="stylesheet" href="{{url('admin/vendors/css/vendor.bundle.base.css')}}">
   <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="{{url('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
-  <link rel="stylesheet" href="{{url('admin/js/select.dataTables.min.css')}}">
-  <!-- End plugin css for this page -->
+  <!-- Plugin css for dashboard page -->
+  @stack('dashboard-css')
+  <!-- End plugin css for dashboard page -->
+  <!-- Plugin css for form pages -->
+  @stack('form-css')
+  <!-- End plugin css for form pages -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{url('admin/css/vertical-layout-light/style.css')}}">
   <!-- endinject -->

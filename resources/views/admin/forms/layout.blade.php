@@ -1,22 +1,18 @@
-<!-- <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Admission</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-    <form method="POST">
-      {{csrf_field()}}
-        @yield('form')    
-    </form>
+@extends('admin.layout')
+@push('form-css')
+<link rel="stylesheet" href="{{url('admin/vendors/select2/select2.min.css')}}">
+<link rel="stylesheet" href="{{url('admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css')}}">
+@endpush
+@section('content')
 
-    </div>
-  </body>
-</html> -->
+<head>
 
+</head>
+
+  @yield('form')
+@endsection
+
+{{--
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +20,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
+  <title>{{$institute_name}}</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{url('admin/vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{url('admin/vendors/mdi/css/materialdesignicons.min.css')}}">
@@ -55,10 +51,10 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="../../index.html">
-            <img src="../../images/logo.svg" alt="logo" />
+            <img src="{{url('admin/images/logo.svg')}}" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="../../index.html">
-            <img src="../../images/logo-mini.svg" alt="logo" />
+            <img src="{{url('admin/images/logo-mini.svg')}}" alt="logo" />
           </a>
         </div>
       </div>
@@ -683,3 +679,4 @@
 </body>
 
 </html>
+--}}

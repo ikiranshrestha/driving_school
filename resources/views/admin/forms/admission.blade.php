@@ -2,8 +2,7 @@
 
 
 @php
-$current_date = date('Y-m-d');
-$minDate = date('Y-m-d', strtotime('-16 year'));
+$maxDate = date('Y-m-d', strtotime('-16 year'));
 @endphp
 
 @section('form')
@@ -44,7 +43,7 @@ $minDate = date('Y-m-d', strtotime('-16 year'));
                         <div class="form-group row">
                           <label for="dob" class="col-sm-3 col-form-label">Date of Birth</label>
                           <div class="col-sm-9">
-                            <input type="date" class="form-control" id="dob" name="dob" max="<?= $minDate; ?>">
+                            <input type="date" class="form-control" id="dob" name="dob" max="{{$maxDate;}}">
                           </div>
                         </div>
                       </div>
@@ -91,11 +90,15 @@ $minDate = date('Y-m-d', strtotime('-16 year'));
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <div class="col-sm-6 ml-auto mr-auto">
-                        <input type="submit" value="Admit" name="admit" class="form-control btn btn-success">
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <div class="col-sm-9">
+                            <input type="submit" value="Admit" name="admit" class="btn btn-success">
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                  </div>
 {{--
 <div class="form-group row">
           <div class="col-sm-4">
