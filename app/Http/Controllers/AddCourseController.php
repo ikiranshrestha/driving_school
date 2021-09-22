@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddCourseController extends Controller
 {
@@ -15,7 +16,13 @@ class AddCourseController extends Controller
     {
         return view('admin.forms.add_course');
     }
+    public function processForm(Request $request)
+    {
+        $data['course_type'] = $request->course_type;
+        $data['vehicle_category'] = $request->vehicle_category;
+        DB::table('courses')->insert($data);
 
+    }
     /**
      * Show the form for creating a new resource.
      *

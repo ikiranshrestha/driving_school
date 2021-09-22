@@ -33,6 +33,7 @@ Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enroll');
 Route::get('/enroll', [EnrollmentController::class, 'loadData'])->name('loadCoursesAndTime');
 
 Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
+Route::post('/add_course', [AddCourseController::class, 'processForm']);
 
 Route::get('/dashboard', function(){
     return view('admin.dashboard');

@@ -495,7 +495,7 @@ $institute_name = "Driving School";
   <script src="{{url('admin/vendors/js/vendor.bundle.base.js')}}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
-  <script src="v{{url('admin/vendors/chart.js/Chart.min.js')}}"></script>
+  <script src="{{url('admin/vendors/chart.js/Chart.min.js')}}"></script>
   <script src="{{url('admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
   <script src="{{url('admin/endors/progressbar.js/progressbar.min.js')}}"></script>
 

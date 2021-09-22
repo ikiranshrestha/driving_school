@@ -66,7 +66,7 @@
                         <div class="form-group row">
                         <label for="package" class="col-sm-3 col-form-label">Time</label>
                           <div class="col-sm-9">
-                          <select name="course" id="course" class="form-control">
+                          <select name="course" id="course"  name="packagecost" class="form-control">
                               <option selected disabled>Select Time</option>
 
                                 @foreach($timeList as $time)
@@ -83,7 +83,7 @@
                         <div class="form-group row">
                         <label for="startdate" class="col-sm-3 col-form-label">Package Cost</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value = "Rs. 5000" id="packagecost" disabled readonly>
+                            <input type="text" class="form-control" value = "Rs. 5000" id="packagecost" name="packagecost" disabled readonly>
                           </div>
                         </div>
                       </div>
@@ -179,7 +179,7 @@
           <div class="col-sm-4">
             <input type="submit" value="Admit" name="admit" class="btn btn-success">
           </div>
-</div>
+        </div>
 --}}
 
 @endsection
