@@ -1,9 +1,9 @@
 @extends('admin.forms.layout')
 <title>Add New Course</title>
 @section('form')
-    <h2>Add Course Type</h2>
+    <h2>Add Course</h2>
     <p class="card-description">
-                      Personal info
+                      Course info
                     </p>
                     <div class="row">
                       <div class="col-md-6">

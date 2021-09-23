@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
+use App\Http\Controllers\AddCoursePackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::get('/enroll', [EnrollmentController::class, 'loadData'])->name('loadCour
 
 Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
 Route::post('/add_course', [AddCourseController::class, 'processForm']);
+
+Route::get('/add_coursepackage', [AddCoursePackageController::class, 'index'])->name('addPackages');
+Route::post('/add_coursepackage', [AddCoursePackageController::class, 'processForm']);
 
 Route::get('/dashboard', function(){
     return view('admin.dashboard');
