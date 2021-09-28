@@ -40,6 +40,21 @@ class EnrollmentController extends Controller
         return response()->json($data);
     }
 
+    public function processForm(Request $request){
+        $uname = $request->uname;
+        $e_aid = DB::table('trainees')
+        ->rightJoin('admissions', 'trainees.id', '=', 'admissions.a_uid')
+        ->select('admissions.id')->where('t_uname', $uname)->first();
+
+        $data['e_aid'] = $e_aid->id;
+        $data['e_cid'] = $request->e_cid;
+        $data['e_pid'] = $request->e_pid;
+        $data['e_startdate'] = $request->e_startdate;
+        $data['e_tmid'] = $request->e_tmid;
+        $data['p_fee'] = $request->p_fee;
+
+        DB::table('enrollments')->insert($data);
+    }
     /**
      * Show the form for creating a new resource.
      *
