@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 
 
 use Illuminate\Http\Request;
+use App\Models\CoursePackage;
+use App\Models\Admission;
 
 class EnrollmentController extends Controller
 {
@@ -15,7 +17,10 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        return view('admin.forms.enrollment');
+        $courseData = DB::table('courses')->select('*')->get();
+        $timeData = DB::table('time')->select('*')->get();
+
+        return view('admin.forms.enrollment', ['courseList' => $courseData, 'timeList' => $timeData]);
     }
     
     public function loadData()
@@ -24,6 +29,15 @@ class EnrollmentController extends Controller
         $timeData = DB::table('time')->select('*')->get();
 
         return view('admin.forms.enrollment', ['courseList' => $courseData, 'timeList' => $timeData]);
+    }
+    
+    public function loadPackagesByCourse(Request $request){
+        $data = CoursePackage::select('*')->where('p_cid', $request->id)->get();
+        return response()->json($data);
+    }
+    public function loadPackagePrice(Request $request){
+        $data = CoursePackage::select('p_cost')->where('id', $request->id)->get();
+        return response()->json($data);
     }
 
     /**

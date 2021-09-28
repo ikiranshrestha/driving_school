@@ -10,7 +10,7 @@
                         <div class="form-group row">
                         <label for="username" class="col-sm-3 col-form-label">Username</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="uname" placeholder="eg. Khatri0b3d020d">
+                            <input type="text" class="form-control" id="uname" name="uname" placeholder="eg. Khatri0b3d020d">
                           </div>
                         </div>
                       </div>
@@ -18,12 +18,12 @@
                         <div class="form-group row">
                         <label for="course" class="col-sm-3 col-form-label">Course</label>
                           <div class="col-sm-9">
-                            <select name="course" id="course" class="form-control">
+                            <select name="e_cid" id="course" class="form-control course">
                               <option selected disabled>Select your Course</option>
 
                                 @foreach($courseList as $course)
 
-                                  <option value="{{$course->vehicle_category}}">{{$course->course_type}}</option>
+                                  <option value="{{$course->id}}">{{$course->course_type}}</option>
 
                                 @endforeach
                 
@@ -38,15 +38,8 @@
                         <div class="form-group row">
                         <label for="package" class="col-sm-3 col-form-label">Package</label>
                           <div class="col-sm-9">
-                          <select name="course" id="course" class="form-control">
-                              <option selected disabled>Select your Package</option>
-
-                                @foreach($courseList as $course)
-
-                                  <option value="{{$course->vehicle_category}}">{{$course->course_type}}</option>
-
-                                @endforeach
-                
+                          <select name="e_pid" id="coursepackage" class="coursepackage form-control">
+                            <option selected disabled>Select your Package</option>
                             </select>
                           </div>
                         </div>
@@ -55,7 +48,7 @@
                         <div class="form-group row">
                         <label for="startdate" class="col-sm-3 col-form-label">Start Date</label>
                           <div class="col-sm-9">
-                            <input type="date" class="form-control" id="startdate" min="{{date('Y-m-d');}}">
+                            <input type="date" name = "e_startdate" class="form-control" id="startdate" min="{{date('Y-m-d');}}">
                           </div>
                         </div>
                       </div>
@@ -66,7 +59,7 @@
                         <div class="form-group row">
                         <label for="package" class="col-sm-3 col-form-label">Time</label>
                           <div class="col-sm-9">
-                          <select name="course" id="course"  name="packagecost" class="form-control">
+                          <select name="e_tmid" id="time"  name="time" class="form-control">
                               <option selected disabled>Select Time</option>
 
                                 @foreach($timeList as $time)
@@ -83,7 +76,7 @@
                         <div class="form-group row">
                         <label for="startdate" class="col-sm-3 col-form-label">Package Cost</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value = "Rs. 5000" id="packagecost" name="packagecost" disabled readonly>
+                            <input type="text" class="form-control p_cost" value = "Rs. 5000" id="p_cost" name="p_cost" disabled readonly>
                           </div>
                         </div>
                       </div>
@@ -94,7 +87,7 @@
                         <div class="form-group row">
                         <label for="offeredprice" class="col-sm-3 col-form-label">Offered Price</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="offeredprice" name="offeredprice">
+                            <input type="text" class="form-control" id="offeredprice" name="p_fee">
                           </div>
                         </div>
                       </div>
@@ -110,76 +103,67 @@
                       </div>
                   </div>
 
-
-
-{{--<div class="form-group row">
-          <div class="col-sm-4">
-            <label for="lastname" class="col-sm-6 col-form-label">Username</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="uname" placeholder="eg. Khatri0b3d020d">
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <label for="course" class="col-sm-6 col-form-label">Course</label>
-            <div class="col-sm-10">
-              <select name="course" id="course" class="form-control">
-                <option selected disabled>Select your Course</option>
-
-              {--@if(isset($courseList))
-
-              @foreach($courseList as $course)
-
-                <option value="{{$course->vehicle_category}}">{{$course->course_type}}</option>
-
-              @endforeach
-
-              @endif--}
-              
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-4">
-            <label for="email" class="col-sm-6 col-form-label">Package</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control" id="email" placeholder="eg. khatriram55@gmail.com">
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <label for="phone" class="col-sm-6 col-form-label" value="+977">Start Date</label>
-            <div class="col-sm-10">
-              <input type="date" class="form-control" id="date" min="{{date('Y-m-d')}}">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-4">
-            <label for="time" class="col-sm-6 col-form-label">Preferred Time</label>
-            <div class="col-sm-10">
-              <select name="time" id="time" class="form-control">
-                <option selected disabled>Select your preferred time</option>
-                
-                @if(isset($timeList))
-                  @foreach($timeList as $time)
-
-                  <option value="{{$time->id}}">{{$time->time}}</option>
-
-                  @endforeach 
-                @endif
-
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-4">
-            <input type="submit" value="Admit" name="admit" class="btn btn-success">
-          </div>
-        </div>
---}}
-
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+    $(document).on('change', '.course', function(){
+      // console.log("Changed");
+
+      var cid = $(this).val();
+      // console.log(id);
+      var parentt = $(this).parent();
+      var opt = " ";
+      var optCost;
+      $.ajax({
+        type: 'GET',
+        url: '{!!route("loadPackagesByCourse")!!}',
+        data:{'id': cid},
+        success: function(data){
+          console.log('success');
+          console.log(data.length);
+          console.log(parentt);
+          opt += '<option selected disabled>Select your Package</option>'
+          if(data.length == 0)
+          {
+            opt += '<option disabled>No Packages Yet</option>'
+          }
+          for(var i=0; i<data.length; i++)
+          {
+            opt += '<option value="'+data[i].id+'">'+data[i].p_name+'</option>'
+          }
+
+          $(".coursepackage").html(" ");
+          $(".coursepackage").append(opt);
+        },
+        error: function(){
+          console.log('error');
+        }
+      });
+    });
+
+    $(document).on('change', '.coursepackage', function(){
+
+      var pid = $(this).val();
+      console.log(pid);
+
+      $.ajax({
+        type: 'GET',
+        url: '{!!route("loadPackagePrice")!!}',
+        data: {'id': pid},
+        dataType: 'json',
+        success: function(data){
+          console.log("price");
+          var p_cost = data[0].p_cost;
+          console.log(data);
+          $('#p_cost').val(0);
+          $('#p_cost').val("Rs. "+ p_cost);
+        },
+        error: function(){}
+      });
+    });
+	});
+</script>
