@@ -23,19 +23,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::get('/admission', function(){
-//     return view('forms.admission');
-// });
 
 Route::get('/admission', [AdmissionController::class, 'index'])->name('admission');
 Route::post('/admission', [AdmissionController::class, 'processForm']);
 
-// Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enroll');
-// Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enroll');
 
-Route::get('/enroll', [EnrollmentController::class, 'index'])->name('loadCoursesAndTime');
+Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enrollment');
 Route::get('/getPackagesByCourse', [EnrollmentController::class, 'loadPackagesByCourse'])->name('loadPackagesByCourse');
-Route::get('/getPackagePrice', [EnrollmentController::class, 'loadPackagePrice'])->name('loadPackagePrice');Route::post('/enroll', [EnrollmentController::class, 'processForm']);
+Route::get('/getPackagePrice', [EnrollmentController::class, 'loadPackagePrice'])->name('loadPackagePrice');
+Route::post('/enroll', [EnrollmentController::class, 'processForm']);
+Route::get('/activeEnrollments', [EnrollmentController::class, 'activeEnrollments'])->name('activeEnrollments');
 
 Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
 Route::post('/add_course', [AddCourseController::class, 'processForm']);
@@ -45,7 +42,7 @@ Route::post('/add_coursepackage', [AddCoursePackageController::class, 'processFo
 
 Route::get('/dashboard', function(){
     return view('admin.dashboard');
-});
+})->name('dashboard');
 Route::get('/layout', function(){
     return view('admin.forms.layout_copy');
 });

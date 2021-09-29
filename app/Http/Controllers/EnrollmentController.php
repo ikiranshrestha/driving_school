@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\CoursePackage;
 use App\Models\Admission;
+use App\Models\Enrollment;
 
 class EnrollmentController extends Controller
 {
@@ -54,6 +55,19 @@ class EnrollmentController extends Controller
         $data['p_fee'] = $request->p_fee;
 
         DB::table('enrollments')->insert($data);
+    }
+    public function activeEnrollments(Request $request){
+        $activeEnrollments = DB::table('enrollments')
+        ->join('coursepackages', 'enrollments.e_pid', '=', 'coursepackages.id')
+        ->join('courses', 'coursepackages.p_cid', '=', 'courses.id')
+        ->join('admissions', 'enrollments.e_aid', '=', 'admissions.id')
+        ->join('trainees', 'admissions.a_uid', '=', 'trainees.id')
+        ->select('*')
+        ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
+        ->get();
+        // ddd($activeEnrollments);
+        return view('admin.tables.activeenrollments', ['enrollmentInfo' => $activeEnrollments]);
+
     }
     /**
      * Show the form for creating a new resource.
