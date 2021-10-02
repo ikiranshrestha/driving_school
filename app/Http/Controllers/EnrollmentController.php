@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\CoursePackage;
 use App\Models\Admission;
 use App\Models\Enrollment;
+use App\Models\Trainee;
+use Illuminate\Support\Facades\Redirect;
 
 class EnrollmentController extends Controller
 {
@@ -43,18 +45,26 @@ class EnrollmentController extends Controller
 
     public function processForm(Request $request){
         $uname = $request->uname;
-        $e_aid = DB::table('trainees')
-        ->rightJoin('admissions', 'trainees.id', '=', 'admissions.a_uid')
-        ->select('admissions.id')->where('t_uname', $uname)->first();
 
-        $data['e_aid'] = $e_aid->id;
-        $data['e_cid'] = $request->e_cid;
-        $data['e_pid'] = $request->e_pid;
-        $data['e_startdate'] = $request->e_startdate;
-        $data['e_tmid'] = $request->e_tmid;
-        $data['p_fee'] = $request->p_fee;
+        if(Trainee::where('t_uname', $uname)->exists())
+        {
+            $e_aid = DB::table('trainees')
+            ->rightJoin('admissions', 'trainees.id', '=', 'admissions.a_uid')
+            ->select('admissions.id')->where('t_uname', $uname)->first();
+            $data['e_aid'] = $e_aid->id;
+            $data['e_cid'] = $request->e_cid;
+            $data['e_pid'] = $request->e_pid;
+            $data['e_startdate'] = $request->e_startdate;
+            $data['e_tmid'] = $request->e_tmid;
+            $data['p_fee'] = $request->p_fee;
 
-        DB::table('enrollments')->insert($data);
+            DB::table('enrollments')->insert($data);
+            return redirect()->route('enrollment')->with('success', 'Enrolled!');
+
+        }else{
+            return redirect()->back()->with('error', "{$uname}: No Such User!");
+        }
+        // die();
     }
     public function activeEnrollments(Request $request){
         $activeEnrollments = DB::table('enrollments')
@@ -64,7 +74,7 @@ class EnrollmentController extends Controller
         ->join('trainees', 'admissions.a_uid', '=', 'trainees.id')
         ->select('*')
         ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
-        ->get();
+        ->get()->sortBy('e_startdate');
         // ddd($activeEnrollments);
         return view('admin.tables.activeenrollments', ['enrollmentInfo' => $activeEnrollments]);
 

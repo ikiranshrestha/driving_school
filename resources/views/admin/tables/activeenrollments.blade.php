@@ -1,17 +1,15 @@
 @extends('admin.tables.layout')
 @section('table')
+@push('table-name')
+<h4 class="card-title">Active Enrollments</h4>
+@endpush
 
-<div class="card">
-<div class="card-body">
-                  <h4 class="card-title">Active Enrollments</h4>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
                       <thead>
                         <tr>
                           <th>User</th>
                           <th>Contact</th>
                           <th>Package Enrolled</th>
-                          <th>Package Tenure</th>
+                          <th>Enrollment Tenure</th>
                           <th>Enrollment Status</th>
                         </tr>
                       </thead>
@@ -26,13 +24,11 @@
                           <span class="text-danger">{{date('Y-m-d', $end_date = strtotime($start_date. " + {$user->p_duration} days"))}}</span>
                         </td>
                         <td>
-                            <label class="{{ ($start_date < date('Y-m-d')) ? 'badge badge-success' : 'badge badge-danger' }}"> {{ ($start_date < date('Y-m-d')) ? 'Ongoing' : 'Pending' }} </label>
+                            <label class="{{ ($start_date <= date('Y-m-d')) ? 'badge badge-success' : 'badge badge-danger' }}"> {{ ($start_date <= date('Y-m-d')) ? 'Ongoing' : 'Awaiting' }} </label>
                         </td>
                         </tr>
                         @endforeach
                       </tbody>
-                    </table>
-                  </div>
                 </div>
                 </div>
               

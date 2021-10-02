@@ -5,6 +5,7 @@ use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
 use App\Http\Controllers\AddCoursePackageController;
+use App\Http\Controllers\DashboardController;
 use App\Models\CoursePackage;
 use App\Models\Enrollment;
 
@@ -36,14 +37,12 @@ Route::get('/activeEnrollments', [EnrollmentController::class, 'activeEnrollment
 
 Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
 Route::post('/add_course', [AddCourseController::class, 'processForm']);
+Route::get('/availablecourses', [AddCourseController::class, 'availablecourses'])->name('availablecourses');
 
 Route::get('/add_coursepackage', [AddCoursePackageController::class, 'index'])->name('addPackages');
 Route::post('/add_coursepackage', [AddCoursePackageController::class, 'processForm']);
+Route::get('/availablepackages', [AddCoursePackageController::class, 'availablepackages'])->name('availablepackages');
 
-Route::get('/dashboard', function(){
-    return view('admin.dashboard');
-})->name('dashboard');
-Route::get('/layout', function(){
-    return view('admin.forms.layout_copy');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/stats', [DashboardController::class, 'stats'])->name('stats');
 

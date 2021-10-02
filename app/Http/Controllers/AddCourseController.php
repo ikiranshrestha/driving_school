@@ -23,6 +23,15 @@ class AddCourseController extends Controller
         DB::table('courses')->insert($data);
 
     }
+    public function availablecourses(Request $request)
+    {
+        $availablecourses = DB::table('courses')
+        ->select('*')
+        ->get()->sortBy('p_cid');
+        // ddd($availablecourses);
+        return view('admin.tables.availablecourses', ['courseInfo' => $availablecourses]);
+
+    }
     /**
      * Show the form for creating a new resource.
      *

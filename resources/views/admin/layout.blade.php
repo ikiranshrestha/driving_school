@@ -40,8 +40,7 @@ $institute_name = "Driving School";
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="{{route('dashboard')}}">
-            <img src="{{url('admin/images/codical.png')}}"/>
-            <span>Codical</span>
+            <img src="{{url('admin/images/codical.png')}}" style="width:100px;height:80px;"/>
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
             <img src="{{url('admin/images/logo-mini.svg')}}" alt="logo" />
@@ -263,11 +262,7 @@ $institute_name = "Driving School";
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{route('enrollment')}}">Enroll</a></li>
-<<<<<<< HEAD
                 <li class="nav-item"> <a class="nav-link" href="{{route('activeEnrollments')}}">Active Enrollments</a></li>
-=======
-                <li class="nav-item"> <a class="nav-link" href="">Active Enrollments</a></li>
->>>>>>> 2fe96d8eee8dc1af09a2205b83c647e203140435
               </ul>
             </div>
           </li>
@@ -280,7 +275,7 @@ $institute_name = "Driving School";
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="">Available Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('availablecourses')}}">Available Courses</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('add_course')}}">Add New Course</a></li>
               </ul>
             </div>
@@ -293,8 +288,8 @@ $institute_name = "Driving School";
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="">Available Packages</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{route('addPackages')}}">Available Packages</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('availablepackages')}}">Available Packages</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('addPackages')}}">Add New Packages</a></li>
               </ul>
             </div>
           </li>

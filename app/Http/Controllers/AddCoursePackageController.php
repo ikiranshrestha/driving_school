@@ -21,14 +21,15 @@ class AddCoursePackageController extends Controller
         return view('admin.forms.add_coursepackage', ['courseList' => $courseData]);
 
     }
-    public function processForm(Request $request)
+    public function availablePackages(Request $request)
     {
-        $packageData['p_name'] = $request->p_name;
-        $packageData['p_cid'] = $request->p_cid;
-        $packageData['p_duration'] = $request->p_duration;
-        $packageData['p_cost'] = $request->p_cost;
+        $availablepackages = DB::table('courses')
+        ->join('coursepackages', 'courses.id', '=', 'coursepackages.p_cid')
+        ->select('*')
+        ->get()->sortBy('p_cid');
+        // ddd($availablepackages);
+        return view('admin.tables.availablepackages', ['packageInfo' => $availablepackages]);
 
-        DB::table('coursepackages')->insert($packageData);
     }
 
     /**

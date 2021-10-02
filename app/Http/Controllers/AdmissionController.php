@@ -42,7 +42,7 @@ class AdmissionController extends Controller
 
         DB::table('admissions')->insert($admissionData);
 
-        
+        //TODO: Use laravel's queries to send email
         $to_email = $data['t_email'];
         $subject = "Your username and password";
         $body = "Welcome to {$name} Driving School!\nHello {$data['t_fname']},\n\nYou have recently been admitted to the driving school. Please take your attendance credentials.\n";

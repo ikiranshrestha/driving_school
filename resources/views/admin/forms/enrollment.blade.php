@@ -5,6 +5,9 @@
 <p class="card-description">
                       Personal info
                     </p>
+                    <div class = "col-md-12">
+                      @include('admin.layouts.message')
+                    </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
@@ -87,7 +90,7 @@
                         <div class="form-group row">
                         <label for="offeredprice" class="col-sm-3 col-form-label">Offered Price</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="offeredprice" name="p_fee">
+                            <input type="text" class="form-control" id="offeredprice" name="p_fee" placeholder="Price after Discount">
                           </div>
                         </div>
                       </div>
