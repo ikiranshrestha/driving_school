@@ -6,8 +6,8 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
 use App\Http\Controllers\AddCoursePackageController;
 use App\Http\Controllers\DashboardController;
-use App\Models\CoursePackage;
-use App\Models\Enrollment;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +45,3 @@ Route::get('/availablepackages', [AddCoursePackageController::class, 'availablep
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/stats', [DashboardController::class, 'stats'])->name('stats');
-

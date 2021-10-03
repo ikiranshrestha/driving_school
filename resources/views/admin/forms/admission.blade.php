@@ -9,6 +9,9 @@ $maxDate = date('Y-m-d', strtotime('-16 year'));
 <p class="card-description">
                       Personal info
                     </p>
+                    <div class="col-md-12">
+                    @include('admin.layouts.message')
+                    </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">

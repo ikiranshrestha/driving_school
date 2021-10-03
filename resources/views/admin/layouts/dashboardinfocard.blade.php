@@ -22,7 +22,7 @@
                                 <h3 class="rate-percentage">{{$totalPendingEnrollments}}
                               </div>
                               <div>
-                                <p class="statistics-title">Trainee Practices</p>
+                                <p class="statistics-title">Training Sessions</p>
                                 <h3 class="rate-percentage">{{$todayTraineeSessions}}</h3>
                               </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <h3 class="rate-percentage">{{$enrollmentsThisWeek}}
                               </div>
                               <div>
-                                <p class="statistics-title">Trainee Practices</p>
+                                <p class="statistics-title">Training Sessions</p>
                                 <h3 class="rate-percentage">{{$trainingSessionsThisWeek}}</h3>
                               </div>
                             </div>
@@ -82,7 +82,7 @@
                                 <h3 class="rate-percentage">{{$totalEnrollments}}
                               </div>
                               <div>
-                                <p class="statistics-title">Trainee Practices</p>
+                                <p class="statistics-title">Training Sessions</p>
                                 <h3 class="rate-percentage">{{$totalTraineeSessions}}</h3>
                               </div>
                             </div>

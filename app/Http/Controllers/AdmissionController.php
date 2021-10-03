@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
 
 class AdmissionController extends Controller
 {
@@ -20,9 +22,6 @@ class AdmissionController extends Controller
 
     public function processForm(Request $request)
     {
-        
-        $name = "Hamro Ramro";
-
         $data['t_fname'] = $request->fname;
         $data['t_mname'] = $request->mname;
         $data['t_lname'] = $request->lname;
@@ -35,24 +34,23 @@ class AdmissionController extends Controller
 
         $last_id = DB::table('trainees')->insertGetId($data);
 
-        
-        // ddd($last_id);
         $admissionData['a_uid'] = $last_id;
         $admissionData['admission_date'] = date("Y-m-d");
 
         DB::table('admissions')->insert($admissionData);
-
-        //TODO: Use laravel's queries to send email
         $to_email = $data['t_email'];
-        $subject = "Your username and password";
-        $body = "Welcome to {$name} Driving School!\nHello {$data['t_fname']},\n\nYou have recently been admitted to the driving school. Please take your attendance credentials.\n";
-        $body .= "\nUsername: {$data['t_uname']}\nPassword: {$data['t_secretkey']}";
-        $headers = "From: KS";
-        
-        if (mail($to_email, $subject, $body, $headers)) {
-            return "Email successfully sent to $to_email...";
-        } else {
-            return "Email sending failed...";
+        $dataForEmail = [
+            'name' => $data['t_fname'] . " " .$data['t_mname'] . " " .$data['t_lname'],
+            'username' => $data['t_uname'],
+            'secretkey' => $data['t_secretkey']
+        ];
+        $sendEmail = Mail::to($to_email)->send(new WelcomeMail($dataForEmail));
+        if(count(Mail::failures()) > 0)
+        {
+            return redirect()->back()->with('error', 'Something went wrong!');
+
+        }else{
+            return redirect()->route('admission')->with('success', 'Admitted and Notified!');
         }
         
     }
