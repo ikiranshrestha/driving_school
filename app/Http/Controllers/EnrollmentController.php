@@ -44,6 +44,16 @@ class EnrollmentController extends Controller
     }
 
     public function processForm(Request $request){
+        //TODO: add filter for enrollment insertion
+            /**
+             * 1. if user not enrolled even once, enroll him
+             *   if yes - ALERT -> Active Enrollment exists, enrollment fail
+             *   if no - goto 2
+             * 2. if user is enrolled to any package even once,
+             *  2.1. check if the training tenure (STARTDATE + PACKAGE DAYS) is less than today's date
+             *      if yes - ALERT -> Active Enrollment exists, enrollment fail
+             *      if no - ALERT -> Enrolled successfully, enrollment success
+             * */
         $uname = $request->uname;
 
         if(Trainee::where('t_uname', $uname)->exists())
@@ -57,14 +67,27 @@ class EnrollmentController extends Controller
             $data['e_startdate'] = $request->e_startdate;
             $data['e_tmid'] = $request->e_tmid;
             $data['p_fee'] = $request->p_fee;
+            // ddd($e_aid);
 
-            DB::table('enrollments')->insert($data);
-            return redirect()->route('enrollment')->with('success', 'Enrolled!');
+            if($count = Enrollment::where('e_aid', '=', $data['e_aid'])->count() > 0){
+                //record exists in enrollment, so check active or not
+                if($abc = DB::table('enrollments')->join('coursepackages', 'enrollments.e_pid', '=', 'coursepackages.id')
+                ->select('*')
+                ->where('e_aid', '=', $data['e_aid'])
+                ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])->first()){
+                    return redirect()->back()->with('error', 'Active Enrollment exists! Cannot enroll while one enrollment is ongoing.');
+                }else{
+                    DB::table('enrollments')->insert($data);
+                    return redirect()->back()->with('success', 'Enrolled');
+                }
+            }else{
+                DB::table('enrollments')->insert($data);
+                return redirect()->back()->with('success', 'Enrolled');
+            }
 
         }else{
             return redirect()->back()->with('error', "{$uname}: No Such User!");
         }
-        // die();
     }
     public function activeEnrollments(Request $request){
         $activeEnrollments = DB::table('enrollments')
