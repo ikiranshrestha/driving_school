@@ -5,8 +5,8 @@
 <p class="card-description">
                       Personal info
                     </p>
-                    <div class = "col-md-12">
-                      @include('admin.layouts.message')
+                    <div class = "col-md-12 alert-message" id="alert-message">
+                    @include('admin.layouts.message')
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -170,3 +170,5 @@
     });
 	});
 </script>
+
+<script src="{{url('admin/js/custom/message-alert-timeout.js')}}"></script>

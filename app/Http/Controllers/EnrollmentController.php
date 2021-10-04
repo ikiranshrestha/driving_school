@@ -9,7 +9,9 @@ use App\Models\CoursePackage;
 use App\Models\Admission;
 use App\Models\Enrollment;
 use App\Models\Trainee;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EnrollMail;
+use App\Helpers\EnrollmentEmailHelper;
 
 class EnrollmentController extends Controller
 {
@@ -44,30 +46,35 @@ class EnrollmentController extends Controller
     }
 
     public function processForm(Request $request){
-        //TODO: add filter for enrollment insertion
-            /**
-             * 1. if user not enrolled even once, enroll him
-             *   if yes - ALERT -> Active Enrollment exists, enrollment fail
-             *   if no - goto 2
-             * 2. if user is enrolled to any package even once,
-             *  2.1. check if the training tenure (STARTDATE + PACKAGE DAYS) is less than today's date
-             *      if yes - ALERT -> Active Enrollment exists, enrollment fail
-             *      if no - ALERT -> Enrolled successfully, enrollment success
-             * */
         $uname = $request->uname;
 
         if(Trainee::where('t_uname', $uname)->exists())
         {
             $e_aid = DB::table('trainees')
             ->rightJoin('admissions', 'trainees.id', '=', 'admissions.a_uid')
-            ->select('admissions.id')->where('t_uname', $uname)->first();
+            ->select('admissions.id', 't_email')->where('t_uname', $uname)->first();
             $data['e_aid'] = $e_aid->id;
             $data['e_cid'] = $request->e_cid;
             $data['e_pid'] = $request->e_pid;
             $data['e_startdate'] = $request->e_startdate;
             $data['e_tmid'] = $request->e_tmid;
             $data['p_fee'] = $request->p_fee;
-            // ddd($e_aid);
+            $trainee_email = $e_aid->t_email;
+            // ddd($trainee_email)
+
+            $coursepackages = DB::table('coursepackages')
+            ->rightJoin('courses', 'coursepackages.p_cid', '=', 'courses.id')
+            ->select('course_type', 'p_name', 'p_duration')
+            ->where('coursepackages.id', '=', $data['e_pid'])
+            ->first();
+            // ddd($coursepackages);
+
+            $time = DB::table('time')
+            ->select('time')
+            ->where('time.id', '=', $data['e_tmid'])->first();
+            // ddd($time->time);
+            $sessionTime = $time->time;
+            // ddd($sessionTime);
 
             if($count = Enrollment::where('e_aid', '=', $data['e_aid'])->count() > 0){
                 //record exists in enrollment, so check active or not
@@ -78,11 +85,22 @@ class EnrollmentController extends Controller
                     return redirect()->back()->with('error', 'Active Enrollment exists! Cannot enroll while one enrollment is ongoing.');
                 }else{
                     DB::table('enrollments')->insert($data);
-                    return redirect()->back()->with('success', 'Enrolled');
+                    $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $coursepackages->p_duration, $sessionTime);
+                    if($notifyEnroll){
+                        return redirect()->back()->with('success', 'Enrolled and Notified!');
+                    }else{
+                        return redirect()->back()->with('error', 'Email not sent!');
+                    }
                 }
             }else{
                 DB::table('enrollments')->insert($data);
-                return redirect()->back()->with('success', 'Enrolled');
+                $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $coursepackages->p_duration, $sessionTime);
+                if($notifyEnroll){
+                    return redirect()->back()->with('success', 'Enrolled and Notified!');
+                }else{
+                    return redirect()->back()->with('error', 'Email not sent!');
+                }
+                // return redirect()->back()->with('success', 'Enrolled');
             }
 
         }else{
