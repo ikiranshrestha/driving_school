@@ -32,6 +32,25 @@ class AddCoursePackageController extends Controller
 
     }
 
+    public function processForm(Request $request)
+    {
+        $request->validate([
+            'p_name' => 'required',
+            'p_cid' => 'required',
+            'p_duration' => 'required',
+            'p_cost' => 'required',
+        ]);
+
+        $packageData['p_name'] = $request->p_name;
+        $packageData['p_cid'] = $request->p_cid;
+        $packageData['p_duration'] = $request->p_duration;
+        $packageData['p_cost'] = $request->p_cost;
+
+        DB::table('coursepackages')->insert($packageData);
+        return redirect()->back()->with('success', 'Package Added Successfully!');
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -18,9 +18,14 @@ class AddCourseController extends Controller
     }
     public function processForm(Request $request)
     {
+        $request->validate([
+            'course_type' => 'required',
+            'vehicle_category' => 'required'
+        ]);
         $data['course_type'] = $request->course_type;
         $data['vehicle_category'] = $request->vehicle_category;
         DB::table('courses')->insert($data);
+        return redirect()->back()->with('success', 'Course Added Successfully!');
 
     }
     public function availablecourses(Request $request)

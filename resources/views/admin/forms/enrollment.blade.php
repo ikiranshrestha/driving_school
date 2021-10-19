@@ -11,9 +11,10 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                        <label for="uname" class="col-sm-3 col-form-label">Username</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="uname" name="uname" placeholder="eg. Khatri0b3d020d">
+                            <input type="text" class="form-control" id="uname" name="uname" value="{{old('uname')}}" placeholder="eg. Khatri0b3d020d">
+                            <span style="color: red">@error('uname'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
@@ -31,6 +32,7 @@
                                 @endforeach
                 
                             </select>
+                            <span style="color: red">@error('e_cid'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
@@ -44,6 +46,7 @@
                           <select name="e_pid" id="coursepackage" class="coursepackage form-control">
                             <option selected disabled>Select your Package</option>
                             </select>
+                            <span style="color: red">@error('e_pid'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
@@ -51,7 +54,8 @@
                         <div class="form-group row">
                         <label for="startdate" class="col-sm-3 col-form-label">Start Date</label>
                           <div class="col-sm-9">
-                            <input type="date" name = "e_startdate" class="form-control" id="startdate" min="{{date('Y-m-d');}}">
+                            <input type="date" name = "e_startdate" class="form-control" value="{{old('e_startdate')}} id="startdate" min="{{date('Y-m-d');}}">
+                            <span style="color: red">@error('e_startdate'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
@@ -72,14 +76,15 @@
                                 @endforeach
                 
                             </select>
+                            <span style="color: red">@error('e_tmid'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="startdate" class="col-sm-3 col-form-label">Package Cost</label>
+                        <label for="p_cost" class="col-sm-3 col-form-label">Package Cost</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control p_cost" value = "Rs. 5000" id="p_cost" name="p_cost" disabled readonly>
+                            <input type="text" class="form-control p_cost" id="p_cost" name="p_cost" disabled readonly>
                           </div>
                         </div>
                       </div>
@@ -90,7 +95,8 @@
                         <div class="form-group row">
                         <label for="offeredprice" class="col-sm-3 col-form-label">Offered Price</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="offeredprice" name="p_fee" placeholder="Price after Discount">
+                            <input type="text" class="form-control" id="offeredprice" name="p_fee" value="{{old('p_fee')}}" placeholder="Price after Discount">
+                            <span style="color: red">@error('p_fee'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>

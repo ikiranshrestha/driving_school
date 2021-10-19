@@ -46,6 +46,16 @@ class EnrollmentController extends Controller
     }
 
     public function processForm(Request $request){
+
+        $request->validate([
+            'uname' => 'required',
+            'e_cid' => 'required',
+            'e_pid' => 'required',
+            'e_startdate' => 'required',
+            'e_tmid' => 'required',
+            'p_fee' => 'required'
+        ]);
+
         $uname = $request->uname;
 
         if(Trainee::where('t_uname', $uname)->exists())

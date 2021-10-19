@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
+use Illuminate\Validation\Rule;
 
 class AdmissionController extends Controller
 {
@@ -22,6 +23,15 @@ class AdmissionController extends Controller
 
     public function processForm(Request $request)
     {
+        $request->validate([
+            'fname' => 'required',
+            'mname' => 'required',
+            'lname' => 'required',
+            'dob' => 'required',
+            'email' => ['required', Rule::unique('trainees', 't_email')],
+            'phone' => ['required', Rule::unique('trainees', 't_phone')],
+            'bloodgroup' => 'required',
+        ]);
         $data['t_fname'] = $request->fname;
         $data['t_mname'] = $request->mname;
         $data['t_lname'] = $request->lname;
