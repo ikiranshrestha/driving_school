@@ -12,6 +12,7 @@ use App\Models\Trainee;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EnrollMail;
 use App\Helpers\EnrollmentEmailHelper;
+use App\Models\Admin;
 
 class EnrollmentController extends Controller
 {
@@ -22,10 +23,13 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
         $courseData = DB::table('courses')->select('*')->get();
         $timeData = DB::table('time')->select('*')->get();
 
-        return view('admin.forms.enrollment', ['courseList' => $courseData, 'timeList' => $timeData]);
+        return view('admin.forms.enrollment', ['courseList' => $courseData, 'timeList' => $timeData, 'LoggedInUserData' => $LoggedInUserData]);
     }
     
     public function loadData()
@@ -46,7 +50,7 @@ class EnrollmentController extends Controller
     }
 
     public function processForm(Request $request){
-
+        //TODO: Remove logical error in enrollment email; issues in - start date, end date
         $request->validate([
             'uname' => 'required',
             'e_cid' => 'required',
@@ -118,6 +122,9 @@ class EnrollmentController extends Controller
         }
     }
     public function activeEnrollments(Request $request){
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
         $activeEnrollments = DB::table('enrollments')
         ->join('coursepackages', 'enrollments.e_pid', '=', 'coursepackages.id')
         ->join('courses', 'coursepackages.p_cid', '=', 'courses.id')
@@ -127,7 +134,7 @@ class EnrollmentController extends Controller
         ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
         ->get()->sortBy('e_startdate');
         // ddd($activeEnrollments);
-        return view('admin.tables.activeenrollments', ['enrollmentInfo' => $activeEnrollments]);
+        return view('admin.tables.activeenrollments', ['LoggedInUserData' => $LoggedInUserData ,'enrollmentInfo' => $activeEnrollments]);
 
     }
     /**

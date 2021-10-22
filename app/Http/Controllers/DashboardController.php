@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admission;
-use App\Models\Enrollment;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +17,10 @@ class DashboardController extends Controller
     public function index()
     {
         //TODO: Modify the queries for optimization and efficiency
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
+        // ddd($LoggedInUserData);
         $titleAllTime = "All Time";
         $totalAdmissions = Admission::all()->count();
         $totalEnrollments = DB::table('enrollments')
@@ -62,7 +66,7 @@ class DashboardController extends Controller
         ->count();
 
 
-        return view('admin.dashboard', ['titleAllTime' => $titleAllTime, 'totalAdmissions' => $totalAdmissions, 'totalEnrollments' => $totalEnrollments, 'totalPendingEnrollments' => $totalPendingEnrollments, 'totalTraineeSessions' => $totalTraineeSessions, 'titleToday' => $titleToday, 'todayAdmissions' => $todayAdmissions, 'todayEnrollments' => $todayEnrollments, 'todayTraineeSessions' => $todayTraineeSessions, 'titleThisWeek' => $titleThisWeek, 'admissionsThisWeek' => $admissionsThisWeek, 'enrollmentsThisWeek' => $enrollmentsThisWeek, 'trainingSessionsThisWeek' => $trainingSessionsThisWeek]);
+        return view('admin.dashboard', ['LoggedInUserData' => $LoggedInUserData], ['titleAllTime' => $titleAllTime, 'totalAdmissions' => $totalAdmissions, 'totalEnrollments' => $totalEnrollments, 'totalPendingEnrollments' => $totalPendingEnrollments, 'totalTraineeSessions' => $totalTraineeSessions, 'titleToday' => $titleToday, 'todayAdmissions' => $todayAdmissions, 'todayEnrollments' => $todayEnrollments, 'todayTraineeSessions' => $todayTraineeSessions, 'titleThisWeek' => $titleThisWeek, 'admissionsThisWeek' => $admissionsThisWeek, 'enrollmentsThisWeek' => $enrollmentsThisWeek, 'trainingSessionsThisWeek' => $trainingSessionsThisWeek]);
     }
 
     /**

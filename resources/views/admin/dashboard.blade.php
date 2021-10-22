@@ -5,6 +5,9 @@
 @endpush
 @section('content')
 
+@push('admin-uname')
+{{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+@endpush
 <div class="main-panel">
     <div class="content-wrapper">
       @include('admin.layouts.dashboardinfocard')

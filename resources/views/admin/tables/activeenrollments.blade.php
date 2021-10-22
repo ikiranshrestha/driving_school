@@ -1,6 +1,9 @@
 @extends('admin.tables.layout')
 @section('table')
 @push('table-name')
+@push('admin-uname')
+{{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+@endpush
 <h4 class="card-title">Active Enrollments</h4>
 @endpush
 

@@ -6,7 +6,6 @@
                     <div class="row">
                       <div class="card">
                         <div class="card-body">
-                            {{--//TODO: Add Insights such as total classes today, total admissions today, total enrollments today, etc--}}
                           <div class="col-sm-12">
                             <div class="statistics-details d-flex align-items-center justify-content-between">
                               <div>
@@ -40,7 +39,6 @@
                     <div class="row">
                       <div class="card">
                         <div class="card-body">
-                            {{--//TODO: Add Insights such as total classes today, total admissions today, total enrollments today, etc--}}
                           <div class="col-sm-12">
                             <div class="statistics-details d-flex align-items-center justify-content-between">
                               <div>

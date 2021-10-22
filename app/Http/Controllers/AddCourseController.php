@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,10 @@ class AddCourseController extends Controller
      */
     public function index()
     {
-        return view('admin.forms.add_course');
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
+        return view('admin.forms.add_course', ['LoggedInUserData' => $LoggedInUserData]);
     }
     public function processForm(Request $request)
     {
@@ -30,11 +34,14 @@ class AddCourseController extends Controller
     }
     public function availablecourses(Request $request)
     {
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
         $availablecourses = DB::table('courses')
         ->select('*')
         ->get()->sortBy('p_cid');
         // ddd($availablecourses);
-        return view('admin.tables.availablecourses', ['courseInfo' => $availablecourses]);
+        return view('admin.tables.availablecourses', ['LoggedInUserData' => $LoggedInUserData ,'courseInfo' => $availablecourses]);
 
     }
     /**

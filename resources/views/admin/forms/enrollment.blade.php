@@ -1,7 +1,9 @@
 @extends('admin.forms.layout')
 
 @section('form')
-
+@push('admin-uname')
+{{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+@endpush
 <p class="card-description">
                       Personal info
                     </p>

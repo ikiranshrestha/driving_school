@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,18 +18,24 @@ class AddCoursePackageController extends Controller
     public function index()
     {
         // $courseData = DB::table('courses')->select('*')->get();
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
         $courseData = Course::all();
-        return view('admin.forms.add_coursepackage', ['courseList' => $courseData]);
+        return view('admin.forms.add_coursepackage', ['LoggedInUserData' => $LoggedInUserData],['courseList' => $courseData]);
 
     }
     public function availablePackages(Request $request)
     {
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
         $availablepackages = DB::table('courses')
         ->join('coursepackages', 'courses.id', '=', 'coursepackages.p_cid')
         ->select('*')
         ->get()->sortBy('p_cid');
         // ddd($availablepackages);
-        return view('admin.tables.availablepackages', ['packageInfo' => $availablepackages]);
+        return view('admin.tables.availablepackages', ['LoggedInUserData' => $LoggedInUserData ,'packageInfo' => $availablepackages]);
 
     }
 

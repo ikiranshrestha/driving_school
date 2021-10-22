@@ -1,6 +1,9 @@
 @extends('admin.forms.layout')
 <title>Add New Course</title>
 @section('form')
+@push('admin-uname')
+{{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+@endpush
     <h2>Add Package</h2>
     <p class="card-description">
                       Course info

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
+use App\Models\Admin;
 use Illuminate\Validation\Rule;
 
 class AdmissionController extends Controller
@@ -17,7 +18,10 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        return view('admin.forms.admission');
+        $LoggedInUserData = ['LoggedInUserInfo'=>
+                            Admin::where('id', session('LoggedInUser'))->first()
+                            ];
+        return view('admin.forms.admission', ['LoggedInUserData' => $LoggedInUserData]);
     }
 
 

@@ -47,7 +47,7 @@
       <div class="navbar-menu-wrapper d-flex align-items-top"> 
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-            <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
+            <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">@stack('admin-uname')</span></h1>
             <h3 class="welcome-sub-text">Your performance summary this week </h3>
           </li>
         </ul>
@@ -292,9 +292,9 @@
           </li>
           <li class="nav-item nav-category">help</li>
           <li class="nav-item">
-            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
+            <a class="nav-link" href="{{route('auth.logout')}}">
               <i class="menu-icon mdi mdi-file-document"></i>
-              <span class="menu-title">Documentation</span>
+              <span class="menu-title">Logout</span>
             </a>
           </li>
         </ul>

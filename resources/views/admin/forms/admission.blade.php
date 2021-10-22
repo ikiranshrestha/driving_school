@@ -6,6 +6,9 @@ $maxDate = date('Y-m-d', strtotime('-16 year'));
 @endphp
 
 @section('form')
+@push('admin-uname')
+{{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+@endpush
 <p class="card-description">
                       Personal info
                     </p>
