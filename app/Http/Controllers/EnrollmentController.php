@@ -99,7 +99,7 @@ class EnrollmentController extends Controller
                     return redirect()->back()->with('error', 'Active Enrollment exists! Cannot enroll while one enrollment is ongoing.');
                 }else{
                     DB::table('enrollments')->insert($data);
-                    $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $coursepackages->p_duration, $sessionTime);
+                    $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $data['e_startdate'], $sessionTime);
                     if($notifyEnroll){
                         return redirect()->back()->with('success', 'Enrolled and Notified!');
                     }else{
@@ -108,7 +108,7 @@ class EnrollmentController extends Controller
                 }
             }else{
                 DB::table('enrollments')->insert($data);
-                $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $coursepackages->p_duration, $sessionTime);
+                $notifyEnroll = sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $data['e_startdate'], $sessionTime);
                 if($notifyEnroll){
                     return redirect()->back()->with('success', 'Enrolled and Notified!');
                 }else{
