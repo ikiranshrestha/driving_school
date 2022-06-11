@@ -21,11 +21,10 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
 Route::group(['middleware'=>['AuthCheck']], function(){
+    Route::get('/',function(){
+        return view('admin.dashboard');
+    });
     Route::get('/admission', [AdmissionController::class, 'index'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'processForm']);
 
