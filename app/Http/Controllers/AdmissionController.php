@@ -29,7 +29,7 @@ class AdmissionController extends Controller
     {
         $request->validate([
             'fname' => 'required',
-            'mname' => 'required',
+            // 'mname' => 'required',
             'lname' => 'required',
             'dob' => 'required',
             'email' => ['required', Rule::unique('trainees', 't_email')],

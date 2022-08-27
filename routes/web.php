@@ -6,8 +6,10 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
 use App\Http\Controllers\AddCoursePackageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\UserAuthController;
 use App\Mail\WelcomeMail;
+use App\Models\Trainee;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -27,7 +29,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     });
     Route::get('/admission', [AdmissionController::class, 'index'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'processForm']);
-
+    Route::get('/getDiscountPrice', [EnrollmentController::class, 'getDiscountPrice'])->name('getDiscountPrice');
 
     Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enrollment');
     Route::get('/getPackagesByCourse', [EnrollmentController::class, 'loadPackagesByCourse'])->name('loadPackagesByCourse');
@@ -50,4 +52,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/auth/login', [UserAuthController::class, 'processLogin'])->name('auth.processLogin');
 });
 
+Route::get('/trainee/login', [TraineeController::class, 'login'])->name('trainee.login');
+Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name('trainee.processLogin');
+Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
+
 Route::get('/auth/logout', [UserAuthController::class, 'logout'])->name('auth.logout');
+Route::get('/test', [EnrollmentController::class, 'totalApplicableDiscount']);

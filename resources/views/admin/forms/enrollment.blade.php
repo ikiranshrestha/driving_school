@@ -32,7 +32,7 @@
                                   <option value="{{$course->id}}">{{$course->course_type}}</option>
 
                                 @endforeach
-                
+
                             </select>
                             <span style="color: red">@error('e_cid'){{$message}} @enderror</span>
                           </div>
@@ -76,7 +76,7 @@
                                   <option value="{{$time->id}}">{{$time->time}}</option>
 
                                 @endforeach
-                
+
                             </select>
                             <span style="color: red">@error('e_tmid'){{$message}} @enderror</span>
                           </div>
@@ -98,7 +98,7 @@
                         <label for="offeredprice" class="col-sm-3 col-form-label">Offered Price</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="offeredprice" name="p_fee" value="{{old('p_fee')}}" placeholder="Price after Discount">
-                            <span style="color: red">@error('p_fee'){{$message}} @enderror</span>
+                            <span id="get_discount_price" style="color: red">@error('p_fee'){{$message}} @enderror</span>
                           </div>
                         </div>
                       </div>
@@ -117,7 +117,8 @@
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+{{--<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">--}}
+{{--</script>--}}
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -134,9 +135,9 @@
         url: '{!!route("loadPackagesByCourse")!!}',
         data:{'id': cid},
         success: function(data){
-          console.log('success');
-          console.log(data.length);
-          console.log(parentt);
+          // console.log('success');
+          // console.log(data.length);
+          // console.log(parentt);
           opt += '<option selected disabled>Select your Package</option>'
           if(data.length == 0)
           {
@@ -151,7 +152,7 @@
           $(".coursepackage").append(opt);
         },
         error: function(){
-          console.log('error');
+          // console.log('error');
         }
       });
     });
@@ -159,7 +160,7 @@
     $(document).on('change', '.coursepackage', function(){
 
       var pid = $(this).val();
-      console.log(pid);
+      // console.log(pid);
 
       $.ajax({
         type: 'GET',
@@ -167,9 +168,9 @@
         data: {'id': pid},
         dataType: 'json',
         success: function(data){
-          console.log("price");
+          // console.log("price");
           var p_cost = data[0].p_cost;
-          console.log(data);
+          // console.log(data);
           $('#p_cost').val(0);
           $('#p_cost').val("Rs. "+ p_cost);
         },
@@ -177,6 +178,52 @@
       });
     });
 	});
+  console.log("===============================================");
+  //implementing algorithm
+  $(document).ready(function(){
+    $('#coursepackage').on('change',function(){
+      var package_id = $(this).val();
+      var url = "{{route("getDiscountPrice")}}";
+      var user = document.getElementById('uname').value;
+      console.log(user);
+      var data = {
+        'package_id': package_id,
+          'user': user
+      };
+      $.ajax({
+        type: 'GET',
+        url: url,
+        data: data,
+        success: function(data){
+          console.log(data);
+          $('#get_discount_price').html(data);
+          $('#get_discount_price').css('color', 'green');
+        },
+      });
+    } )
+  })
 </script>
+<script>
+    //setup before functions
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 5000;  //time in ms, 5 second for example
+    var $input = $('#uname');
 
+    //on keyup, start the countdown
+    $input.on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown
+    $input.on('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function doneTyping () {
+        //do something
+        alert('done typing');
+    }
+</script>
 <script src="{{url('admin/js/custom/message-alert-timeout.js')}}"></script>
