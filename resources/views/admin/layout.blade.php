@@ -299,8 +299,8 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="{{route('availablecourses')}}">Report1</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{route('add_course')}}">Report2</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('report.ad_vs_en')}}">Admission vs Enrollment</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('report.income_by_month')}}">Income Sheet</a></li>
               </ul>
             </div>
           </li>

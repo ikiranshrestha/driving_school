@@ -6,6 +6,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
 use App\Http\Controllers\AddCoursePackageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\UserAuthController;
 use App\Mail\WelcomeMail;
@@ -50,6 +51,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::get('/auth/login', [UserAuthController::class, 'login'])->name('auth.login');
     Route::post('/auth/login', [UserAuthController::class, 'processLogin'])->name('auth.processLogin');
+    
+    Route::get('/reports/admission-vs-enrollment', [ReportController::class, 'admissionVsEnrollment'])->name('report.ad_vs_en');
+    Route::get('reports/income-sheet', [ReportController::class, 'incomeByMonth'])->name('report.income_by_month');
 });
 
 Route::get('/trainee/login', [TraineeController::class, 'login'])->name('trainee.login');
@@ -57,4 +61,4 @@ Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name(
 Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
 
 Route::get('/auth/logout', [UserAuthController::class, 'logout'])->name('auth.logout');
-Route::get('/test', [EnrollmentController::class, 'totalApplicableDiscount']);
+
