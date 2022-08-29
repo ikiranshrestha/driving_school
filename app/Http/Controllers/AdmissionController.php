@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use App\Models\Admin;
+use App\Models\Trainee;
 use Illuminate\Validation\Rule;
 
 class AdmissionController extends Controller
@@ -69,6 +70,36 @@ class AdmissionController extends Controller
         
     }
 
+    public function listAllAdmissions()
+    {
+        $admittedTrainees = Trainee::join('admissions', 'trainees.id', '=', 'admissions.a_uid')->paginate(5);
+        // ddd($admittedTrainees);
+        return view('admin.tables.admitted_trainees', ['admittedTrainees' => $admittedTrainees]);
+    }
+    public function editTrainee(Request $request)
+    {
+        $admittedTrainees = Trainee::join('admissions', 'trainees.id', '=', 'admissions.a_uid')->where('trainees.id', '=', $request->id)->first();
+        // ddd($admittedTrainees);
+        // $admittedTrainees = Trainee::join('admissions', 'trainees.id', '=', 'admissions.a_uid')->paginate(5);
+        // ddd($admittedTrainees);
+        return view('admin.forms.edit_trainee', ['admittedTrainees' => $admittedTrainees]);
+    }
+
+    public function updateTrainee(Request $request)
+    {
+        $data['t_fname'] = $request->fname;
+        $data['t_mname'] = $request->mname;
+        $data['t_lname'] = $request->lname;
+        $data['t_uname'] = $request->lname . hash('adler32', time());
+        $data['t_secretkey'] = hash('adler32', $data['t_uname']);
+        $data['t_dob'] = $request->dob;
+        $data['t_email'] = $request->email;
+        $data['t_phone'] = $request->phone;
+        $data['t_bloodgroup'] = $request->bloodgroup;
+        // $trainee = new Trainee();
+        DB::table('trainees')->where('id', '=', $request->id)->update($data);
+        return redirect()->route('admission.edit_trainee', $request->id)->with('success', 'Successfully Updated!');
+    }
 
     /**
      * Show the form for creating a new resource.

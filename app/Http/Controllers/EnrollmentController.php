@@ -197,15 +197,15 @@ class EnrollmentController extends Controller
     public function governFestivalOffers()
     {
         $governFestivalOffer = 0;
-        if (date('m') == 10 || date('m') == 11) {
-            $governFestivalOffer = 50;
+        if (date('m') == 10 || date('m') == 11 || date('m') == 8) {
+            $governFestivalOffer = 5;
         } elseif (date('m') == 5 || date('m') == 6) {
             $governFestivalOffer = -10;
         }
         return $governFestivalOffer;
     }
 
-    public function getDiscountByEnrollmentCount($id = 1)
+    public function getDiscountByEnrollmentCount($id)
     {
         $discount_percent = 0;
         $traineeId = $id;
@@ -243,9 +243,16 @@ class EnrollmentController extends Controller
             if($request->package_id != null){
                 $package_id = $request->package_id;
                 $package = CoursePackage::findOrfail($package_id);
-                
-                    $traineeId = DB::table('trainees')->select('id')->where('t_uname', $request->user)->first()->id;
-                    
+                $uname = $request->user;
+                // return $uname;
+
+                    // $traineeId = DB::table('trainees')->select('id')->where('t_uname', $request->user)->get();
+                    // $traineeId = DB::table('trainees')
+                    // ->where('t_uname', '=', $request->user)
+                    // ->get();
+                    // $traineeId =  DB::table('trainees')->select('*')->where('t_uname', '=', $uname)->get();
+                    $traineeId =  DB::table('trainees')->select('id')->where('t_uname', '=', $uname)->first()->id;
+                    // ddd($traineeId);
                     $loyaltyDiscountInPercent = $this->getLoyaltyDiscount($traineeId);
                     if($loyaltyDiscountInPercent > 0){
                         $packageCost = $package->p_cost;

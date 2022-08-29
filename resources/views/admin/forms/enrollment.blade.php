@@ -186,6 +186,7 @@
       var url = "{{route("getDiscountPrice")}}";
       var user = document.getElementById('uname').value;
       console.log(user);
+      console.log(package_id);
       var data = {
         'package_id': package_id,
           'user': user
@@ -195,7 +196,7 @@
         url: url,
         data: data,
         success: function(data){
-          console.log(data);
+          // console.log(data);
           $('#get_discount_price').html(data);
           $('#get_discount_price').css('color', 'green');
         },

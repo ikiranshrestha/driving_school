@@ -247,6 +247,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{!!route('admission')!!}">New Admission</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{!!route('admission.trainee_list')!!}">Trainee List</a></li>
               </ul>
             </div>
           </li>

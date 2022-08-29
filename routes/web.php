@@ -30,6 +30,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     });
     Route::get('/admission', [AdmissionController::class, 'index'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'processForm']);
+    Route::get('/admission/trainee-list', [AdmissionController::class, 'listAllAdmissions'])->name('admission.trainee_list');
+    Route::get('/admission/edit-trainee/{id}', [AdmissionController::class, 'editTrainee'])->name('admission.edit_trainee');
+    Route::post('/admission/edit-trainee/{id}', [AdmissionController::class, 'updateTrainee'])->name('admission.update_trainee');
     Route::get('/getDiscountPrice', [EnrollmentController::class, 'getDiscountPrice'])->name('getDiscountPrice');
 
     Route::get('/enroll', [EnrollmentController::class, 'index'])->name('enrollment');
@@ -56,7 +59,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('reports/income-sheet', [ReportController::class, 'incomeByMonth'])->name('report.income_by_month');
 });
 
-Route::get('/trainee/login', [TraineeController::class, 'login'])->name('trainee.login');
+Route::get('/trainee', [TraineeController::class, 'login'])->name('trainee.login');
 Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name('trainee.processLogin');
 Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
 
