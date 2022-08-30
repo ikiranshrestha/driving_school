@@ -39,25 +39,27 @@ class TraineeController extends Controller
 
     public function dashboard(Request $request)
     {
-        $sessionId = Session::get('LoggedInUser');
+        // $sessionId = Session::get('LoggedInUser');
         // ddd($sessionId);
+        $traineeSession = ['LoggedInUserInfo'=>
+        Trainee::where('id', session('LoggedInUser'))->first()
+        ];
+        $sessionId = $traineeSession['LoggedInUserInfo'];
         $traineeInfo = DB::table('trainees')->join('admissions', 'admissions.a_uid', '=', 'trainees.id')
                         ->join('enrollments', 'enrollments.e_aid', '=', 'admissions.id')
                         ->join('courses', 'courses.id', '=', 'enrollments.e_cid')
                         ->join('coursepackages', 'coursepackages.id', '=', 'enrollments.e_pid')
-                        ->where('trainees.id', '=', $sessionId)->get();
-        // $courseType = $traineeInfo->t_fname . ' ' . $traineeInfo->t_mname  .  ' ' . $traineeInfo->t_lname;
-        // ddd($traineeInfo);
-        // ddd($traineeInfo->toSql());
+                        ->where('trainees.id', '=', $sessionId['id'])->get();
+ 
         return view('trainee.dashboard', ['enrollment_history' => $traineeInfo]);     
     }
 
 
-    // public function progressReport()
-    // {
-    //     ddd(Auth::id());
-    //     $all = DB::table('trainee_evaluations')->get();
-    //     ddd($all);
-    //     return view('trainee.reports.progress_report');
-    // }
+    public function progressReport()
+    {
+        $traineeId = (session('LoggedInUser'));
+        $progressReport = DB::table('trainee_evaluations')->where('trainee_id', $traineeId)->get();
+        // ddd($all);
+        return view('trainee.reports.progress_report', ['ProgressReport' => $progressReport]);
+    }
 }
