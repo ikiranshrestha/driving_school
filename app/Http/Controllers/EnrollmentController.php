@@ -161,7 +161,8 @@ class EnrollmentController extends Controller
             ->join('courses', 'coursepackages.p_cid', '=', 'courses.id')
             ->join('admissions', 'enrollments.e_aid', '=', 'admissions.id')
             ->join('trainees', 'admissions.a_uid', '=', 'trainees.id')
-            ->select('*')
+            ->select('trainees.t_uname', 'trainees.t_fname', 'trainees.t_mname', 'trainees.t_lname', 'trainees.id as tr_id', 'trainees.t_phone', 'enrollments.id as enr_id', 'enrollments.e_startdate', 'courses.*', 'coursepackages.*', 'admissions.*')
+            // ->select('trainees.t_uname, trainees.t_fname, trainees.t_mname, trainees.t_lname, trainees.t_contact')
             ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
             ->get()->sortBy('e_startdate');
         // ddd($activeEnrollments);

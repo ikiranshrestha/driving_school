@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Trainee;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -50,4 +51,13 @@ class TraineeController extends Controller
         // ddd($traineeInfo->toSql());
         return view('trainee.dashboard', ['enrollment_history' => $traineeInfo]);     
     }
+
+
+    // public function progressReport()
+    // {
+    //     ddd(Auth::id());
+    //     $all = DB::table('trainee_evaluations')->get();
+    //     ddd($all);
+    //     return view('trainee.reports.progress_report');
+    // }
 }

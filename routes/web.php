@@ -57,11 +57,16 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     
     Route::get('/reports/admission-vs-enrollment', [ReportController::class, 'admissionVsEnrollment'])->name('report.ad_vs_en');
     Route::get('reports/income-sheet', [ReportController::class, 'incomeByMonth'])->name('report.income_by_month');
+    
+    Route::get('trainee-evaluation/{id}', [ReportController::class, 'evaluateTrainee'])->name('evaluate_trainee');
+    Route::post('trainee-evaluation/{id}', [ReportController::class, 'storeTraineeEvaluation'])->name('store_evaluate_trainee');
+    Route::get('view-trainee-progress/{id}', [ReportController::class, 'viewTraineeProgress'])->name('view_trainee_progress');
 });
 
 Route::get('/trainee', [TraineeController::class, 'login'])->name('trainee.login');
 Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name('trainee.processLogin');
 Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
+// Route::get('/trainee/progress-report', [TraineeController::class, 'progressReport'])->name('trainee.progressReport');
 
 Route::get('/auth/logout', [UserAuthController::class, 'logout'])->name('auth.logout');
 

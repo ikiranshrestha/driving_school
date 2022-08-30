@@ -14,6 +14,7 @@
                           <th>Package Enrolled</th>
                           <th>Enrollment Tenure</th>
                           <th>Enrollment Status</th>
+                          <th colspan="2">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -29,6 +30,8 @@
                         <td>
                             <label class="{{ ($start_date <= date('Y-m-d')) ? 'badge badge-success' : 'badge badge-danger' }}"> {{ ($start_date <= date('Y-m-d')) ? 'Ongoing' : 'Awaiting' }} </label>
                         </td>
+                        <td><a href="{{Route('evaluate_trainee', $user->tr_id)}}"><button class = "btn btn-sm btn-warning">Evaluate</button></a></td>
+                        <td><a href="{{Route('view_trainee_progress', $user->tr_id)}}"><button class = "btn btn-sm btn-warning">Progress</button></a></td>
                         </tr>
                         @endforeach
                       </tbody>
