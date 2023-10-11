@@ -19,15 +19,14 @@ class CreateTraineeEvaluationsTable extends Migration
             $table->foreign('trainee_id')->references('id')->on('trainees')->onDelete('cascade');
             $table->unsignedBigInteger('enroll_id');
             $table->foreign('enroll_id')->references('id')->on('enrollments')->onDelete('cascade');
-            $table->integer('rounds');
-            $table->integer('eight_boundary_violations');
-            $table->integer('foot_on_ground');
-            $table->integer('side_light_violation');
-            $table->integer('traffic_light_violation');
-            $table->integer('ramp_boundary_violation');
-            $table->integer('engine_stoll');
-            $table->integer('uphill_boundary_violation');
-            $table->integer('downnhill_boundary_violation');
+            $table->integer('weight');
+            $table->integer('chest');
+            $table->integer('biceps');
+            $table->integer('stomach');
+            $table->integer('waist');
+            $table->integer('hip');
+            $table->integer('thigh');
+            $table->integer('calves');
             $table->timestamps();
         });
     }

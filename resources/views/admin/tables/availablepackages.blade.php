@@ -10,7 +10,7 @@
 <thead>
                         <tr>
                           <th>Category</th>
-                          <th>Vehicle Type</th>
+                          {{-- <th>Vehicle Type</th> --}}
                           <th>Package Name</th>
                           <th>Duration</th>
                           <th>Cost</th>
@@ -19,10 +19,10 @@
                       <tbody>
                           @foreach($packageInfo as $package):
                         <tr>
-                          <td>{{$package->vehicle_category}}</td>
-                          <td>{{$package->course_type}}</td>
+                          {{-- <td>{{$package->vehicle_category}}</td> --}}
+                          <td>{{$package->name}}</td>
                           <td>{{$package->p_name}}</td>
-                          <td>{{$package->p_duration}} days</td>
+                          <td>{{$package->p_duration}} months</td>
                           <td>Rs. {{$package->p_cost}}.00</td>
                         </tr>
                         @endforeach

@@ -23,7 +23,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{url('admin/css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{url('admin/images/codical.png')}}" />
+  <link rel="shortcut icon" href="{{url('admin/images/logo.png')}}" />
 </head>
 <body>
   <div class="container-scroller"> 
@@ -37,7 +37,7 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" href="{{route('dashboard')}}">
-            <img src="{{url('admin/images/codical.png')}}" style="width:100px;height:80px;"/>
+            <img src="{{url('admin/images/logo.png')}}" style="width:100px;height:80px;"/>
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
             <img src="{{url('admin/images/logo-mini.svg')}}" alt="logo" />
@@ -342,7 +342,7 @@
   <!-- Plugin js for this page -->
   <script src="{{url('admin/vendors/chart.js/Chart.min.js')}}"></script>
   <script src="{{url('admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-  <script src="{{url('admin/endors/progressbar.js/progressbar.min.js')}}"></script>
+  <script src="{{url('admin/vendors/progressbar.js/progressbar.min.js')}}"></script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->

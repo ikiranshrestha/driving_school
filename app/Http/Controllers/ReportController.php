@@ -30,25 +30,24 @@ class ReportController extends Controller
             return view('admin.forms.evaluate_trainee');
         }
 
-        public function storeTraineeEvaluation(Request $request){
+        public function storeTraineeEvaluation(Request $request, int $id){
             // $enrollId = Enrollment::join('admissions', 'admissions.a_uid', '=' 'enrollments.id')->where('trainee_id', $request->trainee_id)->orderBy('e_startdate', 'DESC')->first();
             $enrollId = DB::table('enrollments')->select('enrollments.id')
             ->join('admissions', 'admissions.id', '=', 'enrollments.e_aid')
             ->join('trainees', 'trainees.id', '=', 'admissions.a_uid')
-            ->where('trainees.id', '=', $request->trainee_id)
+            ->where('trainees.id', '=', $id)
             ->orderByDesc('e_startdate')->first()->id;
-            // ddd($enrollId);
-            $data['trainee_id'] = $request->trainee_id;
+
+            $data['trainee_id'] = $id;
             $data['enroll_id'] = $enrollId;
-            $data['rounds'] = $request->rounds;
-            $data['eight_boundary_violations'] = $request->eight_boundary_violations;
-            $data['foot_on_ground'] = $request->foot_on_ground;
-            $data['side_light_violation'] = $request->side_light_violation;
-            $data['traffic_light_violation'] = $request->traffic_light_violation;
-            $data['ramp_boundary_violation'] = $request->ramp_boundary_violation;
-            $data['engine_stoll'] = $request->engine_stoll;
-            $data['uphill_boundary_violation'] = $request->uphill_boundary_violation;
-            $data['downnhill_boundary_violation'] = $request->downnhill_boundary_violation;
+            $data['weight'] = $request->weight;
+            $data['chest'] = $request->chest;
+            $data['biceps'] = $request->biceps;
+            $data['stomach'] = $request->stomach;
+            $data['waist'] = $request->waist;
+            $data['hip'] = $request->hip;
+            $data['thigh'] = $request->thigh;
+            $data['calves'] = $request->calves;
             $data['created_at'] = Carbon::now();
             // ddd($data);
             DB::table('trainee_evaluations')->insert($data);

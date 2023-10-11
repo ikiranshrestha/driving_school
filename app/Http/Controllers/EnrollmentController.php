@@ -22,7 +22,7 @@ class EnrollmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $LoggedInUserData = [
             'LoggedInUserInfo' =>
@@ -65,7 +65,7 @@ class EnrollmentController extends Controller
             'e_cid' => 'required',
             'e_pid' => 'required',
             'e_startdate' => 'required',
-            'e_tmid' => 'required',
+            // 'e_tmid' => 'required',
             'p_fee' => 'required'
         ]);
 
@@ -86,7 +86,7 @@ class EnrollmentController extends Controller
 
             $coursepackages = DB::table('coursepackages')
                 ->rightJoin('courses', 'coursepackages.p_cid', '=', 'courses.id')
-                ->select('course_type', 'p_name', 'p_duration')
+                ->select('name', 'p_name', 'p_duration')
                 ->where('coursepackages.id', '=', $data['e_pid'])
                 ->first();
             // ddd($coursepackages);
@@ -95,7 +95,7 @@ class EnrollmentController extends Controller
                 ->select('time')
                 ->where('time.id', '=', $data['e_tmid'])->first();
             // ddd($time->time);
-            $sessionTime = $time->time;
+            // $sessionTime = $time->time;
             // ddd($sessionTime);
 
             if ($count = Enrollment::where('e_aid', '=', $data['e_aid'])->count() > 0) {
@@ -120,8 +120,9 @@ class EnrollmentController extends Controller
                         $trainee_email,
                         $uname,
                         $coursepackages,
-                        $data['e_startdate'],
-                        $sessionTime
+                        1,
+                        $data['e_startdate']
+                        // $sessionTime
                     );
                     if ($notifyEnroll) {
                         return redirect()->back()->with('success', 'Enrolled and Notified!');
@@ -135,8 +136,9 @@ class EnrollmentController extends Controller
                     $trainee_email,
                     $uname,
                     $coursepackages,
+                    1,
                     $data['e_startdate'],
-                    $sessionTime
+                    // $sessionTime
                 );
                 if ($notifyEnroll) {
                     return redirect()->back()->with('success', 'Enrolled and Notified!');
@@ -166,6 +168,33 @@ class EnrollmentController extends Controller
             ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
             ->get()->sortBy('e_startdate');
         // ddd($activeEnrollments);
+        return view(
+            'admin.tables.activeenrollments',
+            ['LoggedInUserData' => $LoggedInUserData, 'enrollmentInfo' => $activeEnrollments]
+        );
+    }
+
+    public function searchEnrollments(Request $request)
+    {
+        $LoggedInUserData = [
+            'LoggedInUserInfo' =>
+                Admin::where('id', session('LoggedInUser'))->first()
+        ];
+
+        $searchQuery = $request->input('search');
+
+        // Perform a phonetic search on the `trainees` table.
+        $activeEnrollments = DB::table('enrollments')
+            ->join('coursepackages', 'enrollments.e_pid', '=', 'coursepackages.id')
+            ->join('courses', 'coursepackages.p_cid', '=', 'courses.id')
+            ->join('admissions', 'enrollments.e_aid', '=', 'admissions.id')
+            ->join('trainees', 'admissions.a_uid', '=', 'trainees.id')
+            ->select('trainees.t_uname', 'trainees.t_fname', 'trainees.t_mname', 'trainees.t_lname', 'trainees.id as tr_id', 'trainees.t_phone', 'enrollments.id as enr_id', 'enrollments.e_startdate', 'courses.*', 'coursepackages.*', 'admissions.*')
+            // ->select('trainees.t_uname, trainees.t_fname, trainees.t_mname, trainees.t_lname, trainees.t_contact')
+            ->whereRaw('enrollments.e_startdate + interval coursepackages.p_duration day >= ?', [date('Y-m-d')])
+            ->whereRaw('SOUNDEX(trainees.t_fname) = SOUNDEX(?) OR SOUNDEX(trainees.t_lname) = SOUNDEX(?) OR SOUNDEX(trainees.t_mname) = SOUNDEX(?) OR SOUNDEX(trainees.t_uname) = SOUNDEX(?)', [$searchQuery, $searchQuery, $searchQuery, $searchQuery])
+            ->get()->sortBy('e_startdate');
+
         return view(
             'admin.tables.activeenrollments',
             ['LoggedInUserData' => $LoggedInUserData, 'enrollmentInfo' => $activeEnrollments]

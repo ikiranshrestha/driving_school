@@ -6,6 +6,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AddCourseController;
 use App\Http\Controllers\AddCoursePackageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\UserAuthController;
@@ -41,6 +42,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/getPackagePrice', [EnrollmentController::class, 'loadPackagePrice'])->name('loadPackagePrice');
     Route::post('/enroll', [EnrollmentController::class, 'processForm']);
     Route::get('/activeEnrollments', [EnrollmentController::class, 'activeEnrollments'])->name('activeEnrollments');
+    Route::get('enrollment/search', [EnrollmentController::class, 'searchEnrollments'])->name('enrollment.search');
 
     Route::get('/add_course', [AddCourseController::class, 'index'])->name('add_course');
     Route::post('/add_course', [AddCourseController::class, 'processForm']);
@@ -71,3 +73,5 @@ Route::get('/trainee/progress-report', [TraineeController::class, 'progressRepor
 
 Route::get('/auth/logout', [UserAuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('/algo', [RecommendationController::class, "recommendCourses"]);
+Route::get('/phonetic', [TraineeController::class, "performSearch"]);

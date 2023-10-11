@@ -13,7 +13,6 @@ Training Session Information <br>
 ----------------------------- <br>
 Start Date: {{$startdate}} <br>
 End Date: {{$enddate}} <br>
-Time: {{$data['time']}}
 
 @component('mail::button', ['url' => 'https://codicaltech.com'])
 Button Text

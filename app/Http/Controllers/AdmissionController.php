@@ -46,8 +46,18 @@ class AdmissionController extends Controller
         $data['t_email'] = $request->email;
         $data['t_phone'] = $request->phone;
         $data['t_bloodgroup'] = $request->bloodgroup;
+        $data['t_description'] = $request->description;
 
         $last_id = DB::table('trainees')->insertGetId($data);
+
+        $recommendationAlgo = new RecommendationController();
+
+        $recommendationCourse = $recommendationAlgo->recommendCourses($request->description);
+        // dd($recommendationCourse);
+        $recommendationCourse = $recommendationCourse->original["courses"][0];
+
+        $recommendationCourseName = $recommendationCourse->name;
+        $recommendationCourseDesc = $recommendationCourse->description;
 
         $admissionData['a_uid'] = $last_id;
         $admissionData['admission_date'] = date("Y-m-d");
@@ -57,7 +67,9 @@ class AdmissionController extends Controller
         $dataForEmail = [
             'name' => $data['t_fname'] . " " .$data['t_mname'] . " " .$data['t_lname'],
             'username' => $data['t_uname'],
-            'secretkey' => $data['t_secretkey']
+            'secretkey' => $data['t_secretkey'],
+            'recommendedCourse' => $recommendationCourseName,
+            'recommendedCourseDesc' => $recommendationCourseDesc,
         ];
         $sendEmail = Mail::to($to_email)->send(new WelcomeMail($dataForEmail));
         if(count(Mail::failures()) > 0)
@@ -67,7 +79,6 @@ class AdmissionController extends Controller
         }else{
             return redirect()->route('admission')->with('success', 'Admitted and Notified!');
         }
-        
     }
 
     public function listAllAdmissions()
@@ -76,6 +87,29 @@ class AdmissionController extends Controller
         // ddd($admittedTrainees);
         return view('admin.tables.admitted_trainees', ['admittedTrainees' => $admittedTrainees]);
     }
+
+    public function searchAdmissions(Request $request)
+{
+    $LoggedInUserData = [
+        'LoggedInUserInfo' =>
+            Admin::where('id', session('LoggedInUser'))->first()
+    ];
+
+    $searchQuery = $request->input('search');
+
+    // Perform a phonetic search on the `trainees` table.
+    $admittedTrainees = Trainee::join('admissions', 'trainees.id', '=', 'admissions.a_uid')
+        ->select('trainees.t_fname', 'trainees.t_lname', 'trainees.t_mname', 'trainees.t_uname', 'trainees.id as tr_id', 'trainees.t_phone', 'admissions.admission_date')
+        ->whereRaw('SOUNDEX(trainees.t_fname) = SOUNDEX(?) OR SOUNDEX(trainees.t_lname) = SOUNDEX(?) OR SOUNDEX(trainees.t_mname) = SOUNDEX(?) OR SOUNDEX(trainees.t_uname) = SOUNDEX(?)', [$searchQuery, $searchQuery, $searchQuery, $searchQuery])
+        ->orderBy('admissions.admission_date', 'DESC')
+        ->paginate(5);
+
+    return view(
+        'admin.tables.admitted_trainees',
+        ['LoggedInUserData' => $LoggedInUserData, 'admittedTrainees' => $admittedTrainees]
+    );
+}
+
     public function editTrainee(Request $request)
     {
         $admittedTrainees = Trainee::join('admissions', 'trainees.id', '=', 'admissions.a_uid')->where('trainees.id', '=', $request->id)->first();

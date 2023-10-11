@@ -26,6 +26,7 @@ class CreateTraineesTable extends Migration
             $table->string('t_email');
             $table->string('t_phone');
             $table->string('t_bloodgroup');
+            $table->text('description')->nullable();
         });
     }
 

@@ -64,7 +64,7 @@ class DashboardController extends Controller
         ->whereBetween('e_startdate', [$todayMinus7Days, $todayDate
         ])
         ->count();
-        
+
         // ddd($this->getAverageLearningTrend());
 
         return view('admin.dashboard', ['LoggedInUserData' => $LoggedInUserData], ['titleAllTime' => $titleAllTime, 'totalAdmissions' => $totalAdmissions, 'totalEnrollments' => $totalEnrollments, 'totalPendingEnrollments' => $totalPendingEnrollments, 'totalTraineeSessions' => $totalTraineeSessions, 'titleToday' => $titleToday, 'todayAdmissions' => $todayAdmissions, 'todayEnrollments' => $todayEnrollments, 'todayTraineeSessions' => $todayTraineeSessions, 'titleThisWeek' => $titleThisWeek, 'admissionsThisWeek' => $admissionsThisWeek, 'enrollmentsThisWeek' => $enrollmentsThisWeek, 'trainingSessionsThisWeek' => $trainingSessionsThisWeek]);

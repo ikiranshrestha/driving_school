@@ -22,7 +22,7 @@
                         @foreach($enrollment_history as $enroll):
                         <tr>
                           <td>{{ $row }}</td>
-                          <td>{{$enroll->course_type}}</td>
+                          <td>{{$enroll->name}}</td>
                           <td>{{$enroll->p_name}}</td>
                           <td>{{ $start_date = $enroll->e_startdate}} to 
                             {{date('Y-m-d', $end_date = strtotime($start_date. " + {$enroll->p_duration} days"))}}</td>

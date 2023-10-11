@@ -8,8 +8,8 @@ $maxDate = date('Y-m-d', strtotime('-16 year'));
 @section('form')
 @push('admin-uname')
 {{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }}
+
 @endpush
-<p class="card-description">
                       Personal info
                     </p>
                     <div class="col-md-12 alert-message" id="alert-message">
@@ -99,6 +99,19 @@ $maxDate = date('Y-m-d', strtotime('-16 year'));
                             </select>
                             <span style="color: red;"> @error('bloodgroup'){{$message}} @enderror </span>
                           </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="description" class="col-sm-3 col-form-label">Description</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" id="description" name="description" placeholder="I want to gain muscle.">{{ old('description') }}</textarea>
+                            @error('description')
+                            <span style="color: red;">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
                         </div>
                       </div>
                     </div>

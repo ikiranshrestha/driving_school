@@ -8,11 +8,10 @@ function sendEnrollmentNotification($trainee_email, $uname, $coursepackages, $st
     $to_email = $trainee_email;
     $dataForEmail = [
                     'username' => $uname,
-                    'course' =>  $coursepackages->course_type,
+                    'course' =>  $coursepackages->name,
                     'package' =>  $coursepackages->p_name,
                     'duration' => $coursepackages->p_duration,
-                    'startdate' => $startdate,
-                    'time' => $time
+                    'startdate' => $startdate
                 ];
                 $sendEmail = Mail::to($to_email)->send(new EnrollMail($dataForEmail));
                 if(count(Mail::failures()) > 0)

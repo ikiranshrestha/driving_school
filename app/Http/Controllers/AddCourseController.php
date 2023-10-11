@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AddCourseController extends Controller
 {
@@ -22,15 +23,37 @@ class AddCourseController extends Controller
     }
     public function processForm(Request $request)
     {
-        $request->validate([
-            'course_type' => 'required',
-            'vehicle_category' => 'required'
-        ]);
-        $data['course_type'] = $request->course_type;
-        $data['vehicle_category'] = $request->vehicle_category;
-        DB::table('courses')->insert($data);
-        return redirect()->back()->with('success', 'Course Added Successfully!');
+        $equipments = $request->get("equipments");
+        $equipmentsArray = explode(',', $equipments); // Split the string by commas to create an array
+        $jsonString = json_encode($equipmentsArray);
+        $request->merge(['equipment' => $jsonString]);
 
+        $validator = Validator::make($request->all(), [
+            "name" => "required|string|max:255",
+            "description" => "required|string|max:255",
+            "intensity" => "required|int|max:255|in:1,2,3,4",
+            'equipments' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()], 422);
+        }
+
+        $data['name'] = $request->name;
+        // $data['uname'] = $request->lname . hash('adler32', time());
+        $data['description'] = $request->description;
+        $data['intensity'] = $request->intensity;
+        // $data['equipment_needed'] = $request->equipments;
+
+        $lasid = DB::table('courses')->insertGetId($data);
+
+        if(!$lasid)
+        {
+            return redirect()->back()->with('error', 'Something went wrong!');
+
+        }else{
+            return redirect()->route('add_course')->with('success', 'Fitness Class Added!');
+        }
     }
     public function availablecourses(Request $request)
     {

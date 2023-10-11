@@ -14,19 +14,19 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="rounds" class="col-sm-3 col-form-label">Number of Rounds</label>
+                        <label for="weight" class="col-sm-3 col-form-label">Weight</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="rounds" value="{{ old('p_name') }}" id="rounds" placeholder="eg. 5">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="weight" value="{{ old('weight') }}" id="weight" placeholder="eg. 50">
+                          <span style="color: red;"> @error('weight'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="eight_boundary_violations" class="col-sm-3 col-form-label">8 Boundary Violation</label>
+                        <label for="chest" class="col-sm-3 col-form-label">Chest</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="eight_boundary_violations" value="{{ old('p_name') }}" id="eight_boundary_violations" placeholder="eg. 2">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="chest" value="{{ old('chest') }}" id="chest" placeholder="eg. 12">
+                          <span style="color: red;"> @error('chest'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
@@ -34,19 +34,19 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="foot_on_ground" class="col-sm-3 col-form-label">Foot on ground</label>
+                        <label for="biceps" class="col-sm-3 col-form-label">Biceps</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="foot_on_ground" value="{{ old('p_name') }}" id="foot_on_ground" placeholder="eg. 5">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="biceps" value="{{ old('biceps') }}" id="biceps" placeholder="eg. 5">
+                          <span style="color: red;"> @error('bicpes'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="side_light_violation" class="col-sm-3 col-form-label">Side-light violation</label>
+                        <label for="stomach" class="col-sm-3 col-form-label">Stomach</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="side_light_violation" value="{{ old('p_name') }}" id="side_light_violation" placeholder="eg. 2">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="stomach" value="{{ old('stomach') }}" id="stomach" placeholder="eg. 8">
+                          <span style="color: red;"> @error('stomach'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
@@ -54,19 +54,19 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="traffic_light_violation" class="col-sm-3 col-form-label">Traffic light violation</label>
+                        <label for="waist" class="col-sm-3 col-form-label">Waist</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="traffic_light_violation" value="{{ old('p_name') }}" id="traffic_light_violation" placeholder="eg. 5">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="waist" value="{{ old('waist') }}" id="waist" placeholder="eg. 5">
+                          <span style="color: red;"> @error('waist'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="ramp_boundary_violation" class="col-sm-3 col-form-label">Ramp boundary violation</label>
+                        <label for="hip" class="col-sm-3 col-form-label">Hip</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="ramp_boundary_violation" value="{{ old('p_name') }}" id="ramp_boundary_violation" placeholder="eg. 2">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="hip" value="{{ old('hip') }}" id="hip" placeholder="eg. 2">
+                          <span style="color: red;"> @error('hip'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
@@ -74,35 +74,24 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="engine_stoll" class="col-sm-3 col-form-label">Engine Stoll</label>
+                        <label for="thigh" class="col-sm-3 col-form-label">Thigh</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="engine_stoll" value="{{ old('p_name') }}" id="engine_stoll" placeholder="eg. 5">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="thigh" value="{{ old('thigh') }}" id="thigh" placeholder="eg. 5">
+                          <span style="color: red;"> @error('thigh'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="uphill_boundary_violation" class="col-sm-3 col-form-label">Uphill boundary violation</label>
+                        <label for="calves" class="col-sm-3 col-form-label">Calves</label>
                           <div class="col-sm-9">
-                          <input type="number" class="form-control" name="uphill_boundary_violation" value="{{ old('p_name') }}" id="uphill_boundary_violation" placeholder="eg. 2">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
+                          <input type="number" class="form-control" name="calves" value="{{ old('calves') }}" id="calves" placeholder="eg. 2">
+                          <span style="color: red;"> @error('calves'){{$message}} @enderror </span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                        <label for="downnhill_boundary_violation" class="col-sm-3 col-form-label">Downhill boundary violation</label>
-                          <div class="col-sm-9">
-                          <input type="number" class="form-control" name="downnhill_boundary_violation" value="{{ old('p_name') }}" id="downnhill_boundary_violation" placeholder="eg. 5">
-                          <span style="color: red;"> @error('p_name'){{$message}} @enderror </span>
-                          <input type="hidden" class="form-control" name="trainee_id" id="trainee_id" value="{{ request('id') }}">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
                     <button class="btn btn-warning">Store Progress</button>
 
 @endsection

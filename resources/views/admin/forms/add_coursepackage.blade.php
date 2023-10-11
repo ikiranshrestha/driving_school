@@ -29,7 +29,7 @@
                                 <option disabled selected>Select Course</option>
                                 @foreach($courseList as $course)
 
-                                    <option value="{{$course->id}}">{{$course->course_type}}</option>
+                                    <option value="{{$course->id}}">{{$course->name}}</option>
 
                                 @endforeach
                             </select>
