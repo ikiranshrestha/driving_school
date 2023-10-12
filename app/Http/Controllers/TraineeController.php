@@ -51,8 +51,22 @@ class TraineeController extends Controller
                         ->join('courses', 'courses.id', '=', 'enrollments.e_cid')
                         ->join('coursepackages', 'coursepackages.id', '=', 'enrollments.e_pid')
                         ->where('trainees.id', '=', $sessionId['id'])->get();
- 
-        return view('trainee.dashboard', ['enrollment_history' => $traineeInfo]);     
+        // dd($traineeInfo[0]->description);
+        $recommendationAlgo = new RecommendationController();
+
+        $recommendationCourse = $recommendationAlgo->recommendCourses($traineeInfo[0]->description);
+        // dd($recommendationCourse);
+        $recommendationCourse = $recommendationCourse->original["courses"][0];
+
+        $recommendationCourseName = $recommendationCourse->name;
+        $recommendationCourseDesc = $recommendationCourse->description;
+
+        return view('trainee.dashboard',
+            ['enrollment_history' => $traineeInfo,
+                'recommendationCourseDesc' => $recommendationCourseDesc,
+                'recommendationCourseName' => $recommendationCourseName,
+            ]
+    );
     }
 
 

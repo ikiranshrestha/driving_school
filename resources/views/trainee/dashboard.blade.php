@@ -5,7 +5,15 @@
 {{-- {{ $enrollname = $LoggedInUserData['LoggedInUserInfo']['uname'] }} --}}
 @endpush
 <div class="row">
-  <div class="col-sm-6"></div>
+  <div class="col-sm-6 mb-4">
+    <div class="card" style="background-color: #FFFFE0;">
+        <div class="card-body">
+          <h6 class="text-right">System Recommendation!</h4>
+          <h4 class="text-right">{{$recommendationCourseName}}</p>
+          <p class="text-right">{{$recommendationCourseDesc}}</p>
+      </div>
+    </div>
+  </div>
 </div>
 <h4 class="card-title">My Packages History</h4>
 @endpush
