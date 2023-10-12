@@ -70,11 +70,12 @@ Route::get('/trainee', [TraineeController::class, 'login'])->name('trainee.login
 Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name('trainee.processLogin');
 Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
 
-Route::get('trainee/evaluation', [ReportController::class, 'evaluateTrainee'])->name('evaluate_trainee');
+Route::get('trainee/evaluation', [TraineeController::class, 'evaluateTrainee'])->name('evaluate_trainee');
 Route::post('trainee/evaluation', [TraineeController::class, 'storeTraineeEvaluation'])->name('trainee.store_evaluate_trainee');
 Route::get('/trainee/progress-report', [TraineeController::class, 'progressReport'])->name('trainee.progressReport');
 
 Route::get('/auth/logout', [UserAuthController::class, 'logout'])->name('auth.logout');
+Route::get('/trainee/logout', [TraineeController::class, 'logout'])->name('trainee.logout');
 
 Route::get('/algo', [RecommendationController::class, "recommendCourses"]);
 Route::get('/phonetic', [TraineeController::class, "performSearch"]);

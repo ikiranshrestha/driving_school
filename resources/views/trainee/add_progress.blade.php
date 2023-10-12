@@ -1,13 +1,10 @@
 @extends('trainee.forms.layout')
-<title>Evaluate Trainee</title>
+<title>Progress Tracker</title>
 @section('form')
 @push('admin-uname')
 {{-- {{ $username = $LoggedInUserData['LoggedInUserInfo']['uname'] }} --}}
 @endpush
-    <h2>Evaluate Trainee</h2>
-    <p class="card-description">
-                      Marking
-                    </p>
+    <h2>Record Measurements</h2>
                     <div class = "col-md-12 alert-message" id="alert-message">
                     @include('admin.layouts.message')
                     </div>

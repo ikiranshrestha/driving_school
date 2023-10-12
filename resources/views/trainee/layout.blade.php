@@ -255,7 +255,7 @@
           </li>
           <li class="nav-item nav-category">help</li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('auth.logout')}}">
+            <a class="nav-link" href="{{route('trainee.logout')}}">
               <i class="menu-icon mdi mdi-file-document"></i>
               <span class="menu-title">Logout</span>
             </a>

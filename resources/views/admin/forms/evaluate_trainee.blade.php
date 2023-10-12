@@ -6,7 +6,6 @@
 @endpush
     <h2>Evaluate Trainee</h2>
     <p class="card-description">
-                      Marking
                     </p>
                     <div class = "col-md-12 alert-message" id="alert-message">
                     @include('admin.layouts.message')

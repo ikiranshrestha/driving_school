@@ -41,7 +41,23 @@
                           <td>{{$enroll->name}}</td>
                           <td>{{$enroll->p_name}}</td>
                           <td>{{ $start_date = $enroll->e_startdate}} to {{date('Y-m-d', $end_date = strtotime($start_date. " + {$enroll->p_duration} days"))}}</td>
-                          <td><label class="{{ ($end_date <= date('Y-m-d')) ? 'badge badge-primary' : 'badge badge-success' }}"> {{ ($end_date <= date('Y-m-d')) ? 'Awaiting/Ongoing' : 'Completed' }} </label></td>
+                          {{-- <td><label class="{{ ($end_date <= date('Y-m-d')) ? 'badge badge-primary' : 'badge badge-success' }}"> {{ ($end_date <= date('Y-m-d')) ? 'Awaiting/Ongoing' : 'Completed' }} </label></td> --}}
+                          <td>
+                            <?php
+                            $today = new DateTime();
+                            $startDate = new DateTime($start_date);
+                            $endDate = new DateTime(date('Y-m-d', $end_date));
+                            if ($endDate < $today) {
+                                echo '<label class="badge badge-danger">Expired</label>';
+                            } elseif ($endDate >= $today) {
+                                echo '<label class="badge badge-success">Ongoing</label>';
+                            } elseif ($startDate > $today) {
+                                echo '<label class="badge badge-warning">Awaiting</label>';
+                            } else {
+                                echo '<label class="badge badge-info">Unknown</label>';
+                            }
+                            ?>
+                        </td>
                           <td>{{$daysDifference}}</td>
                           <td>Rs. {{$enroll->p_fee}}</td>
                           @php $row++ @endphp

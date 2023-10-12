@@ -227,7 +227,7 @@ class TraineeController extends Controller
     }
 
     public function evaluateTrainee(Request $request){
-        return view('admin.forms.evaluate_trainee');
+        return view('trainee.add_progress');
     }
 
     public function storeTraineeEvaluation(Request $request){
@@ -257,6 +257,14 @@ class TraineeController extends Controller
             return redirect()->back()->with('success', 'Trainee Evaluation Added Successfully');
         } else {
             return redirect()->back()->with('error', 'Trainee Evaluation Could Not Be Added');
+        }
+    }
+
+    public function logout()
+    {
+        if(session()->has('LoggedInUser')){
+            session()->pull('LoggedInUser');
+            return redirect('trainee');
         }
     }
 }
