@@ -120,7 +120,7 @@ class EnrollmentController extends Controller
                         $trainee_email,
                         $uname,
                         $coursepackages,
-                        1,
+                        $data['e_startdate'],
                         $data['e_startdate']
                         // $sessionTime
                     );
@@ -136,7 +136,7 @@ class EnrollmentController extends Controller
                     $trainee_email,
                     $uname,
                     $coursepackages,
-                    1,
+                    $data['e_startdate'],
                     $data['e_startdate'],
                     // $sessionTime
                 );

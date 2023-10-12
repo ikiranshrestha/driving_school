@@ -58,7 +58,11 @@ class AdmissionController extends Controller
 
         $recommendationCourseName = $recommendationCourse->name;
         $recommendationCourseDesc = $recommendationCourse->description;
+        $recommendationCourseId = $recommendationCourse->id;
 
+        $recommendedCoursePackages = DB::table('coursepackages')->where('p_cid', $recommendationCourseId)->select('*')
+            ->get()->sortBy('p_cid');
+        // dd(gettype($recommendedCoursePackages), $recommendedCoursePackages);
         $admissionData['a_uid'] = $last_id;
         $admissionData['admission_date'] = date("Y-m-d");
 
@@ -70,6 +74,7 @@ class AdmissionController extends Controller
             'secretkey' => $data['t_secretkey'],
             'recommendedCourse' => $recommendationCourseName,
             'recommendedCourseDesc' => $recommendationCourseDesc,
+            'recommendedCoursePackage' => $recommendedCoursePackages,
         ];
         $sendEmail = Mail::to($to_email)->send(new WelcomeMail($dataForEmail));
         if(count(Mail::failures()) > 0)

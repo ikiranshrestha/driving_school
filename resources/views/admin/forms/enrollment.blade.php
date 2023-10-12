@@ -66,33 +66,13 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                        <label for="package" class="col-sm-3 col-form-label">Time</label>
-                          <div class="col-sm-9">
-                          <select name="e_tmid" id="time"  name="time" class="form-control">
-                              <option selected disabled>Select Time</option>
-
-                                @foreach($timeList as $time)
-
-                                  <option value="{{$time->id}}">{{$time->time}}</option>
-
-                                @endforeach
-
-                            </select>
-                            <span style="color: red">@error('e_tmid'){{$message}} @enderror</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
                         <label for="p_cost" class="col-sm-3 col-form-label">Package Cost</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control p_cost" id="p_cost" name="p_cost" disabled readonly>
                           </div>
                         </div>
                       </div>
-                  </div>
 
-                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                         <label for="offeredprice" class="col-sm-3 col-form-label">Offered Price</label>
