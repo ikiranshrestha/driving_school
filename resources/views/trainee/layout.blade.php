@@ -238,6 +238,14 @@
             </a>
           </li>
 
+          <li class="nav-item nav-category">My Info</li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('trainee.description.update')}}">
+              <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title">Update Description</span>
+            </a>
+          </li>
+
             <li class="nav-item nav-category">Reports</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">

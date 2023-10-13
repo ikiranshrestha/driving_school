@@ -274,6 +274,38 @@ class TraineeController extends Controller
         }
     }
 
+    public function updateDescription()
+    {
+        $description = DB::table('trainees')->where('id', session('LoggedInUser'))->first();
+        $description = $description->t_description;
+
+        return view('trainee.forms.update-description', ["description" => $description]);
+    }
+
+    public function updateDescriptionProcess(Request $request) {
+        $request->validate([
+            'description' => 'required',
+        ]);
+
+        $traineeSession = ['LoggedInUserInfo'=>
+        Trainee::where('id', session('LoggedInUser'))->first()
+        ];
+        $traineeId = $traineeSession['LoggedInUserInfo'];
+        // Update the specific field in the table
+        $affectedRows = DB::table('trainees')
+            ->where('id', $traineeId->id)
+            ->update([
+                't_description' => $request->input('description'),
+            ]);
+
+        if ($affectedRows === 0) {
+            return response()->json(['message' => 'Record not found'], 404);
+        }
+
+        return redirect()->route('trainee.description.update')
+        ->with('success', 'Description updated successfully');
+    }
+
     public function logout()
     {
         if(session()->has('LoggedInUser')){

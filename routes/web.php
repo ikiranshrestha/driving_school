@@ -69,6 +69,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 Route::get('/trainee', [TraineeController::class, 'login'])->name('trainee.login');
 Route::post('/trainee/login', [TraineeController::class, 'processLogin'])->name('trainee.processLogin');
 Route::get('/trainee/dashboard', [TraineeController::class, 'dashboard'])->name('trainee.dashboard');
+Route::get('/trainee/description/update', [TraineeController::class, 'updateDescription'])->name('trainee.description.update');
+Route::put('/trainee/description/update', [TraineeController::class, 'updateDescriptionProcess'])->name('trainee.description.update.process');
 
 Route::get('trainee/evaluation', [TraineeController::class, 'evaluateTrainee'])->name('evaluate_trainee');
 Route::post('trainee/evaluation', [TraineeController::class, 'storeTraineeEvaluation'])->name('trainee.store_evaluate_trainee');
