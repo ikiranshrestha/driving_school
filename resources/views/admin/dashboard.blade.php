@@ -11,8 +11,8 @@
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-sm-6">@include('admin.layouts.dashboardinfocard')</div>
-        <div class="col-sm-6">@include('admin.layouts.dashboard_trend_section')</div>
+        <div class="col-sm-12">@include('admin.layouts.dashboardinfocard')</div>
+        {{-- <div class="col-sm-6">@include('admin.layouts.dashboard_trend_section')</div> --}}
       </div>
     </div>
 </div>
